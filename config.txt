@@ -1,0 +1,44 @@
+##### stoke search config file
+--out result.s # 结果输出路径。优化后的函数将写入此文件。
+
+--target bins/_Z6paritym.s # 目标函数路径。这是 Stoke 尝试优化的汇编文件。
+--init target # 搜索的初始状态。'target' 表示从目标函数的原始指令开始搜索。
+             # 也可以设置为 'nops'，表示从一串 NOP 指令开始。
+
+--def_in "{ %rdi }" # 入口时已定义的寄存器。这些寄存器在函数调用时已包含有效数据。
+--live_out "{ %rax }" # 出口时期望保持活跃的寄存器。这些寄存器在函数返回时需要包含所需结果。
+
+--distance hamming # 衡量 live-out 之间误差的指标。'hamming' 表示使用汉明距离。
+--misalign_penalty 1 # 结果出现在错误位置时的惩罚值。
+--reduction sum # 在不同测试用例之间累加误差的方法。'sum' 表示简单求和。
+--sig_penalty 9999 # 对于产生非零信号（例如，段错误、除零错误）的重写分配的分数。高惩罚值表示不希望出现这种情况。
+
+--cost "correctness+size" # 优化目标。这里是“正确性”和“大小”的组合。
+--correctness "correctness == 0" # 正确性评估标准。'correctness == 0' 表示只有完全正确（无误差）的重写才被认为是正确的。
+
+--cpu_flags "{ }" # 用于指令建议的 CPUID 标志。当前为空，表示不限制特定的 CPU 特性。
+
+--global_swap_mass 1 # 全局交换（指令块）提案的权重。
+--instruction_mass 10 # 指令插入/删除提案的权重。
+--local_swap_mass 1 # 局部交换（单个指令）提案的权重。
+--opcode_mass 1 # 操作码（指令类型）修改提案的权重。
+--operand_mass 1 # 操作数（指令参数）修改提案的权重。
+--rotate_mass 1 # 循环移位提案的权重。
+--validator_must_support # 要求验证器必须支持所使用的所有指令。
+
+--beta 1 # 搜索的退火常数。控制搜索的激进程度，较低的值可能导致更广泛的探索。
+--initial_instruction_number 40 # 重写中允许的最大指令数量。
+
+--statistics_interval 50000 # 每隔多少次提案打印一次统计信息。这里是每 50000 次。
+--timeout_iterations 12800000 # 搜索的总迭代（提案）次数上限。
+--cycle_timeout 400000 # 每次验证（Cycle）的超时时间，以CPU周期为单位。
+
+--strategy bounded # 验证结果的策略。'bounded' 表示使用有界验证器。
+--testcases parity.tc # 测试用例文件路径。Stoke 将使用这些测试用例来评估重写的正确性。
+--training_set "{ 1 .. 16 }" # 用于训练和搜索的测试用例子集，这里是文件中的第1到第16个测试用例。
+
+
+
+
+McSema 二进制翻译工具
+
