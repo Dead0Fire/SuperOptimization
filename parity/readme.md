@@ -1,0 +1,1 @@
+(_Z6paritym.s)	优化后 (result.s)
