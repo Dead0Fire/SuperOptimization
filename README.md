@@ -347,3 +347,8 @@ stoke replace --config replace.conf
 # 测试优化后的性能
 time ./a.out 100000000
 ```
+
+在新机器上得出测试集的x86前后对比.
+glibc版本不符合.
+pin无法进行二进制插桩测试.
+服务器代理问题.
