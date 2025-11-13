@@ -40,3 +40,27 @@ Known Issues:
 p19, p20, and p24 have optimization files that are configured to be used
 without first performing synthesis. make synth will work in these directories,
 but make opt will not read the results.
+
+
+ Worker 3501 processing p10
+▶ Worker 3501 processing p12
+▶ Worker 3501 processing p16
+▶ Worker 3501 processing p14
+▶ Worker 3501 processing p18
+▶ Worker 3501 processing p20
+▶ Worker 3501 processing p22
+▶ Worker 3501 processing p24
+✔ Worker 3501 finished p18
+▶ Worker 3501 processing p19
+✔ Worker 3501 finished p14
+▶ Worker 3501 processing p15
+✔ Worker 3501 finished p22
+▶ Worker 3501 processing p23
+✔ Worker 3501 finished p16
+▶ Worker 3501 processing p17
+✔ Worker 3501 finished p23
+✔ Worker 3501 finished p17
+✔ Worker 3501 finished p12
+▶ Worker 3501 processing p13
+✔ Worker 3501 finished p13
+✔ Worker 3501 finished p15
