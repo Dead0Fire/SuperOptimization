@@ -13,3 +13,4 @@ stoke.s: 这个文件是将 loop.s 中的循环框架与 opt_result.s 中的优�
 traverse_rv64_before.s: 这是一个 RISC-V (RV64) 汇编文件，实现了与 C++ 版本逻辑相同的 traverse 函数。其操作顺序是：先读取并修改当前节点的值，然后再移动到下一个节点。
 
 traverse_rv64.s: 这是 traverse 函数的另一个 RISC-V (RV64) 汇编版本。根据注释，它模仿了 stoke.s 的优化风格：先获取下一个节点的地址并更新头指针，然后再修改“旧”头节点的值。这种顺序在某些处理器架构上可能效率更高。
+
