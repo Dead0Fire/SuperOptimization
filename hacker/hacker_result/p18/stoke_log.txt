@@ -1,0 +1,149 @@
+gcc -std=c++11 -O0 -c fxn.cc
+g++ -std=c++11 -O3 main.cc fxn.o
+stoke extract -i ./a.out -o bins
+FXN_FILE=$(ls bins | grep -E '\.s$' | grep -v main | head -n1); \
+	test -n "$FXN_FILE" || { echo "❌ No extracted function found in bins/"; exit 1; }; \
+	stoke testcase --target bins/$FXN_FILE --max_testcases 1024 -o test.tc
+WARNING: No live out values provided, assuming { %rax %rdx %rbx %rsp %rbp %r12 %r13 %r14 %r15 %xmm0 %xmm1 }
+WARNING: No def in values provided; assuming { %rdx %rbx %rsp %rbp %edi %r12 %r13 %r14 %r15 %xmm0 %xmm1 %mxcsr::rc[0] }
+time stoke search --config synth.conf 
+WARNING: Some cpu flags are not available on this hardware and will be removed:
+WARNING: { abm }
+Running search (timeout is 1000000 iterations):
+
+################################################################################
+
+Final update:
+
+Total search iterations:       0
+Number of attempted searches:  1
+Total search time:             0.000154892s
+Total time:                    0.285225s
+
+Statistics of last search
+
+Iterations:                    0
+Elapsed Time:                  0s
+Iterations/s:                  -nan
+
+Starting cost:                 0
+Lowest cost:                   0
+Lowest correct cost:           0
+
+Move Type       Proposed     Succeeded     Accepted     
+                                                        
+Add Nops        -nan%        -nan%         -nan%        
+Delete          -nan%        -nan%         -nan%        
+Instruction     -nan%        -nan%         -nan%        
+Opcode          -nan%        -nan%         -nan%        
+OpcodeWidth     -nan%        -nan%         -nan%        
+Operand         -nan%        -nan%         -nan%        
+Local Swap      -nan%        -nan%         -nan%        
+Global Swap     -nan%        -nan%         -nan%        
+Rotate          -nan%        -nan%         -nan%        
+                                                        
+Total           -nan%        -nan%         -nan%        
+
+Lowest Cost Discovered (0)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p18i:                      ._Z3p18i:                         
+xorq %rax, %rax                xorq %rax, %rax                   
+retq                           retq                              
+
+################################################################################
+
+Search terminated successfully with a verified rewrite!
+0.25user 0.07system 0:00.33elapsed 100%CPU (0avgtext+0avgdata 99244maxresident)k
+0inputs+8outputs (0major+21701minor)pagefaults 0swaps
+time stoke search --config opt.conf
+WARNING: Some cpu flags are not available on this hardware and will be removed:
+WARNING: { abm }
+Running search (timeout is 1000000 iterations):
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (1)     Lowest Known Correct Cost (1)     
+                                                                 
+._Z3p18i:                      ._Z3p18i:                         
+xorq %rax, %rax                xorq %rax, %rax                   
+retq                           retq                              
+
+********************************************************************************
+
+Statistics Update: 
+
+Iterations:                    1000000
+Elapsed Time:                  3.51135s
+Iterations/s:                  284790
+
+Starting cost:                 1
+Lowest cost:                   1
+Lowest correct cost:           1
+
+Move Type       Proposed     Succeeded     Accepted     
+                                                        
+Add Nops        0%           0%            0%           
+Delete          0%           0%            0%           
+Instruction     16.626%      0.025%        0.0007%      
+Opcode          16.6389%     5.8704%       0.7595%      
+OpcodeWidth     0%           0%            0%           
+Operand         16.7498%     4.8636%       4.8636%      
+Local Swap      16.6541%     0%            0%           
+Global Swap     16.6999%     0%            0%           
+Rotate          16.6313%     0%            0%           
+                                                        
+Total           100%         10.759%       5.6238%      
+
+********************************************************************************
+
+################################################################################
+
+Final update:
+
+Total search iterations:       1000000
+Number of attempted searches:  1
+Total search time:             3.51166s
+Total time:                    3.80465s
+
+Statistics of last search
+
+Iterations:                    1000000
+Elapsed Time:                  3.51151s
+Iterations/s:                  284778
+
+Starting cost:                 1
+Lowest cost:                   1
+Lowest correct cost:           1
+
+Move Type       Proposed     Succeeded     Accepted     
+                                                        
+Add Nops        0%           0%            0%           
+Delete          0%           0%            0%           
+Instruction     16.626%      0.025%        0.0007%      
+Opcode          16.6389%     5.8704%       0.7595%      
+OpcodeWidth     0%           0%            0%           
+Operand         16.7498%     4.8636%       4.8636%      
+Local Swap      16.6541%     0%            0%           
+Global Swap     16.6999%     0%            0%           
+Rotate          16.6313%     0%            0%           
+                                                        
+Total           100%         10.759%       5.6238%      
+
+Lowest Cost Discovered (1)     Lowest Known Correct Cost (1)     
+                                                                 
+._Z3p18i:                      ._Z3p18i:                         
+xorq %rax, %rax                xorq %rax, %rax                   
+retq                           retq                              
+
+################################################################################
+
+Search terminated successfully with a verified rewrite!
+3.13user 0.71system 0:03.85elapsed 100%CPU (0avgtext+0avgdata 99620maxresident)k
+0inputs+16outputs (0major+22388minor)pagefaults 0swaps
+time ./a.out 100000000
+1.77user 0.00system 0:01.77elapsed 100%CPU (0avgtext+0avgdata 1176maxresident)k
+0inputs+0outputs (0major+59minor)pagefaults 0swaps
+g++ -std=c++11 -O3 -c fxn.cc
+g++ -std=c++11 -O3 main.cc fxn.o
+stoke replace --config replace.conf

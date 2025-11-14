@@ -1,0 +1,7 @@
+### Optimized x86 Performance
+```
+
+real	0m0.580s
+user	0m0.576s
+sys	0m0.004s
+```

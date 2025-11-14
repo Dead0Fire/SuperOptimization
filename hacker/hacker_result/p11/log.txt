@@ -1,0 +1,3243 @@
+gcc -std=c++11 -O0 -c fxn.cc
+g++ -std=c++11 -O3 main.cc fxn.o
+stoke extract -i ./a.out -o bins
+FXN_FILE=$(ls bins | grep -E '\.s$' | grep -v main | head -n1); \
+	test -n "$FXN_FILE" || { echo "❌ No extracted function found in bins/"; exit 1; }; \
+	stoke testcase --target bins/$FXN_FILE --max_testcases 1024 -o test.tc
+WARNING: No live out values provided, assuming { %rax %rdx %rbx %rsp %rbp %r12 %r13 %r14 %r15 %xmm0 %xmm1 }
+WARNING: No def in values provided; assuming { %rbx %rsp %rbp %esi %edi %r12 %r13 %r14 %r15 %xmm0 %xmm1 %mxcsr::rc[0] }
+time stoke search --config synth.conf 
+WARNING: Some cpu flags are not available on this hardware and will be removed:
+WARNING: { abm }
+Running search (timeout is 1000000 iterations):
+
+Progress Update: 
+
+Lowest Cost Discovered (7)        Lowest Known Correct Cost (0)     
+                                                                    
+._Z3p11ii:                        ._Z3p11ii:                        
+pextl %esi, %esi, %r10d           pushq %rbp                        
+subb %sil, %dil                   movq %rsp, %rbp                   
+bzhil %r10d, %edi, %eax           movl %edi, -0x14(%rbp)            
+shrl $0x1, %r10d                  movl %esi, -0x18(%rbp)            
+lzcntl %r10d, %eax                movl -0x18(%rbp), %eax            
+leal 0x40(%r10d,%eax,2), %r9d     notl %eax                         
+mull %eax                         movl %eax, -0x8(%rbp)             
+bextrl %esi, %edx, %r8d           movl -0x14(%rbp), %eax            
+rcrl $0x1, %eax                   andl -0x8(%rbp), %eax             
+orb %r9b, %r10b                   movl %eax, -0x4(%rbp)             
+adcb %ah, %dh                     movl -0x4(%rbp), %edx             
+xchgb %dil, %al                   movl -0x18(%rbp), %eax            
+rcll $0x1, %r8d                   cmpl %eax, %edx                   
+sarb $0xfe, %dil                  seta %al                          
+cmovsl %eax, %r8d                 movzbl %al, %eax                  
+movb %ah, %al                     popq %rbp                         
+mulb %ah                          retq                              
+verr %si                                                            
+incq %rsi                                                           
+salw $0x1, %dx                                                      
+andw $0xfffe, %r10w                                                 
+cmpb $0x40, %al                                                     
+sbbq $0xffffffff, %rax                                              
+sbbl $0x2, %edx                                                     
+sets %r10b                                                          
+btrq $0x2, %r9                                                      
+setna %cl                                                           
+andw %ax, %di                                                       
+setnl %r10b                                                         
+orw $0xfff8, %r8w                                                   
+retq                                                                
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (5)        Lowest Known Correct Cost (0)     
+                                                                    
+._Z3p11ii:                        ._Z3p11ii:                        
+sarxl %esi, %esi, %r10d           pushq %rbp                        
+subb %sil, %dil                   movq %rsp, %rbp                   
+bzhil %r10d, %edi, %eax           movl %edi, -0x14(%rbp)            
+verr %si                          movl %esi, -0x18(%rbp)            
+lzcntl %r10d, %eax                movl -0x18(%rbp), %eax            
+leal 0x40(%r10d,%eax,2), %r9d     notl %eax                         
+mull %eax                         movl %eax, -0x8(%rbp)             
+andnl %esi, %edx, %r8d            movl -0x14(%rbp), %eax            
+orb %r9b, %r10b                   andl -0x8(%rbp), %eax             
+rcrl $0x1, %eax                   movl %eax, -0x4(%rbp)             
+xorb %dh, %dh                     movl -0x4(%rbp), %edx             
+xchgb %al, %al                    movl -0x18(%rbp), %eax            
+rcll $0x1, %r10d                  cmpl %eax, %edx                   
+sarb $0xfe, %dil                  seta %al                          
+cmovsl %eax, %r8d                 movzbl %al, %eax                  
+movb %ah, %al                     popq %rbp                         
+mulb %ah                          retq                              
+andw $0xfffe, %r10w                                                 
+incq %rsi                                                           
+salw $0x1, %dx                                                      
+sarl $0x1, %r10d                                                    
+cmpb $0x40, %al                                                     
+sbbq $0xffffffff, %rax                                              
+sbbl $0x2, %edx                                                     
+sets %r10b                                                          
+btrq $0x2, %r8                                                      
+setc %cl                                                            
+andw %ax, %di                                                       
+setnl %r10b                                                         
+orw $0xfff8, %r8w                                                   
+retq                                                                
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (4)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+xorq $0x40, %rsi               pushq %rbp                        
+blsrq %rdi, %rax               movq %rsp, %rbp                   
+xorq %r11, %r11                movl %edi, -0x14(%rbp)            
+movzbl %r11b, %ecx             movl %esi, -0x18(%rbp)            
+addb $0xff, %dil               movl -0x18(%rbp), %eax            
+salw %cl, %di                  notl %eax                         
+imulb %ch                      movl %eax, -0x8(%rbp)             
+mull %ecx                      movl -0x14(%rbp), %eax            
+andq $0x4, %rax                andl -0x8(%rbp), %eax             
+adcb %dh, %dh                  movl %eax, -0x4(%rbp)             
+setc %dl                       movl -0x4(%rbp), %edx             
+shlb %cl, %dl                  movl -0x18(%rbp), %eax            
+cmpxchgb %al, %dh              cmpl %eax, %edx                   
+subq %rax, %rax                seta %al                          
+shrw %cl, %si                  movzbl %al, %eax                  
+blsiq %r11, %rax               popq %rbp                         
+setne %dl                      retq                              
+adcb $0x4, %r11b                                                 
+shrl $0x1, %r11d                                                 
+rolb $0x1, %dl                                                   
+adcw $0x8, %si                                                   
+setnbe %r11b                                                     
+setl %ch                                                         
+xorl $0x10, %esi                                                 
+emms                                                             
+cmovngw %cx, %r11w                                               
+cmovzl %eax, %ecx                                                
+decb %r11b                                                       
+setge %al                                                        
+cmovpow %r11w, %dx                                               
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (3)      Lowest Known Correct Cost (0)     
+                                                                  
+._Z3p11ii:                      ._Z3p11ii:                        
+popcntq %rdi, %rax              pushq %rbp                        
+mull %esi                       movq %rsp, %rbp                   
+subl %eax, %edx                 movl %edi, -0x14(%rbp)            
+subw %si, %dx                   movl %esi, -0x18(%rbp)            
+movzbl %dl, %ecx                movl -0x18(%rbp), %eax            
+subb %cl, %ch                   notl %eax                         
+andl $0xfffffff9, %edx          movl %eax, -0x8(%rbp)             
+mulxl %ecx, %edx, %r11d         movl -0x14(%rbp), %eax            
+movzbw %ch, %ax                 andl -0x8(%rbp), %eax             
+cmovcl %eax, %edx               movl %eax, -0x4(%rbp)             
+btsq %rcx, %rsi                 movl -0x4(%rbp), %edx             
+rolb $0x1, %ah                  movl -0x18(%rbp), %eax            
+sarb $0x1, %dh                  cmpl %eax, %edx                   
+salb $0x1, %dl                  seta %al                          
+cmovael %eax, %r8d              movzbl %al, %eax                  
+addw %dx, %ax                   popq %rbp                         
+salq %cl, %rax                  retq                              
+lzcntq %rax, %rcx                                                 
+movb %cl, %dil                                                    
+popcntq %r11, %rax                                                
+sbbb %cl, %dh                                                     
+leal 0x4(%esi,%eax,4), %eax                                       
+rorw $0x7, %ax                                                    
+rolw $0x0, %ax                                                    
+cmpxchgq %rsi, %rsi                                               
+andq $0x20, %rax                                                  
+cmoval %eax, %r9d                                                 
+xorl $0x40, %esi                                                  
+setge %al                                                         
+orb $0x6, %cl                                                     
+retq                                                              
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (2)         Lowest Known Correct Cost (0)     
+                                                                     
+._Z3p11ii:                         ._Z3p11ii:                        
+movq $0xfffffffffffffffe, %r11     pushq %rbp                        
+blsrl %edi, %eax                   movq %rsp, %rbp                   
+cltd                               movl %edi, -0x14(%rbp)            
+pextl %esi, %eax, %ecx             movl %esi, -0x18(%rbp)            
+imulq %rax                         movl -0x18(%rbp), %eax            
+imull $0x10, %esi, %r8d            notl %eax                         
+testw $0xffe0, %ax                 movl %eax, -0x8(%rbp)             
+sbbq $0x6, %rsi                    movl -0x14(%rbp), %eax            
+sarw $0x1, %si                     andl -0x8(%rbp), %eax             
+notl %esi                          movl %eax, -0x4(%rbp)             
+pdepl %ecx, %ecx, %eax             movl -0x4(%rbp), %edx             
+cmpl %ecx, %r11d                   movl -0x18(%rbp), %eax            
+sbbl %r11d, %edx                   cmpl %eax, %edx                   
+xchgw %r11w, %si                   seta %al                          
+andl %edi, %esi                    movzbl %al, %eax                  
+cmovsl %r8d, %r8d                  popq %rbp                         
+rclq %cl, %rax                     retq                              
+setns %r11b                                                          
+mulxl %esi, %r9d, %eax                                               
+rorw $0x1, %cx                                                       
+adcl %edi, %edx                                                      
+notb %r8b                                                            
+cmc                                                                  
+rorb $0x1, %r9b                                                      
+decb %ch                                                             
+addq $0x0, %rax                                                      
+mfence                                                               
+shrb $0x2, %cl                                                       
+cmpw %r8w, %cx                                                       
+btq $0x5, %rdx                                                       
+retq                                                                 
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (1)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+lzcntl %esi, %r11d             pushq %rbp                        
+movl $0x1, %edx                movq %rsp, %rbp                   
+imull $0x7, %edi, %eax         movl %edi, -0x14(%rbp)            
+adcl $0x80, %eax               movl %esi, -0x18(%rbp)            
+imull $0x8, %edi, %r8d         movl -0x18(%rbp), %eax            
+adcb $0x6, %dh                 notl %eax                         
+cmovgeq %rdi, %rdi             movl %eax, -0x8(%rbp)             
+shlw $0x1, %r8w                movl -0x14(%rbp), %eax            
+cmpxchgb %r8b, %r11b           andl -0x8(%rbp), %eax             
+movslq %r11d, %r10             movl %eax, -0x4(%rbp)             
+cmovcw %si, %r10w              movl -0x4(%rbp), %edx             
+imulw $0xff80, %r10w, %cx      movl -0x18(%rbp), %eax            
+cmpw $0x1, %r10w               cmpl %eax, %edx                   
+notw %ax                       seta %al                          
+imulw %cx                      movzbl %al, %eax                  
+subb %ah, %cl                  popq %rbp                         
+incl %r8d                      retq                              
+cmovnbl %eax, %r9d                                               
+setnge %r11b                                                     
+setnp %r10b                                                      
+sarb %cl, %r8b                                                   
+testb $0xff, %dh                                                 
+subq $0x8, %rax                                                  
+imulq %rdx, %rsi                                                 
+cmovcl %r11d, %edx                                               
+salb %cl, %ah                                                    
+rorb $0x1, %ah                                                   
+movsbw %ah, %si                                                  
+xchgl %edx, %eax                                                 
+xorb %al, %r10b                                                  
+retq                                                             
+
+********************************************************************************
+
+Statistics Update: 
+
+Iterations:                    1000000
+Elapsed Time:                  47.7569s
+Iterations/s:                  20939.4
+
+Starting cost:                 8
+Lowest cost:                   1
+Lowest correct cost:           0
+
+Move Type       Proposed     Succeeded     Accepted     
+                                                        
+Add Nops        0%           0%            0%           
+Delete          0%           0%            0%           
+Instruction     24.9887%     12.1624%      7.2608%      
+Opcode          25.0256%     19.8889%      17.9439%     
+OpcodeWidth     0%           0%            0%           
+Operand         24.9876%     20.8698%      19.1969%     
+Local Swap      24.9981%     11.6046%      9.9484%      
+Global Swap     0%           0%            0%           
+Rotate          0%           0%            0%           
+                                                        
+Total           100%         64.5257%      54.35%       
+
+********************************************************************************
+
+Unable to discover a new correct rewrite before timing out... 
+
+********************************************************************************
+
+Restarting search
+Running search (timeout is 1000000 iterations):
+
+Progress Update: 
+
+Lowest Cost Discovered (4)        Lowest Known Correct Cost (0)     
+                                                                    
+._Z3p11ii:                        ._Z3p11ii:                        
+xorq %rax, %rax                   pushq %rbp                        
+xchgw %si, %ax                    movq %rsp, %rbp                   
+xchgl %eax, %eax                  movl %edi, -0x14(%rbp)            
+movl $0xffffffc0, %r9d            movl %esi, -0x18(%rbp)            
+andnl %esi, %esi, %r8d            movl -0x18(%rbp), %eax            
+tzcntl %r8d, %edx                 notl %eax                         
+shlxl %edi, %esi, %ecx            movl %eax, -0x8(%rbp)             
+andw $0xffff, %ax                 movl -0x14(%rbp), %eax            
+movb $0x80, %r11b                 andl -0x8(%rbp), %eax             
+xorw %ax, %dx                     movl %eax, -0x4(%rbp)             
+setnbe %dh                        movl -0x4(%rbp), %edx             
+shrb $0x1, %r8b                   movl -0x18(%rbp), %eax            
+cmpxchgw %ax, %dx                 cmpl %eax, %edx                   
+sbbl $0x2, %esi                   seta %al                          
+setns %r8b                        movzbl %al, %eax                  
+imull $0xfffffffa, %edi, %esi     popq %rbp                         
+leaw 0x7(,%r9,2), %r11w           retq                              
+orw $0xfffd, %cx                                                    
+cmovneq %rdi, %rdi                                                  
+movb $0xc0, %cl                                                     
+orw $0x10, %ax                                                      
+bzhil %edi, %eax, %ecx                                              
+setnle %r10b                                                        
+sarb %cl, %ch                                                       
+sbbq $0xfffffff0, %rsi                                              
+cqto                                                                
+cmovbew %r9w, %di                                                   
+addb %r8b, %dl                                                      
+negl %edi                                                           
+xchgw %r8w, %ax                                                     
+retq                                                                
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (2)         Lowest Known Correct Cost (0)     
+                                                                     
+._Z3p11ii:                         ._Z3p11ii:                        
+andnl %edi, %esi, %esi             pushq %rbp                        
+movzbq %sil, %rdx                  movq %rsp, %rbp                   
+movsbl %dl, %r11d                  movl %edi, -0x14(%rbp)            
+bextrq %rdx, %rsi, %rax            movl %esi, -0x18(%rbp)            
+movb %dh, %dh                      movl -0x18(%rbp), %eax            
+addl %edi, %r11d                   notl %eax                         
+movq $0x4, %r10                    movl %eax, -0x8(%rbp)             
+cmovlq %rsi, %r10                  movl -0x14(%rbp), %eax            
+cmovnel %esi, %r9d                 andl -0x8(%rbp), %eax             
+movq $0xfffffffffffffff0, %rcx     movl %eax, -0x4(%rbp)             
+incb %al                           movl -0x4(%rbp), %edx             
+salw $0x10, %di                    movl -0x18(%rbp), %eax            
+sete %dh                           cmpl %eax, %edx                   
+imulq $0x8, %r11, %r8              seta %al                          
+orl %ecx, %esi                     movzbl %al, %eax                  
+xorl $0x3, %eax                    popq %rbp                         
+cmovzw %ax, %ax                    retq                              
+imull $0xfffffff8, %r11d, %esi                                       
+shrxq %r8, %rax, %r9                                                 
+mull %r10d                                                           
+adcw %dx, %r8w                                                       
+cmpxchgl %eax, %edx                                                  
+cmovncl %r9d, %edx                                                   
+cmovnlew %r10w, %si                                                  
+subw $0xffff, %r10w                                                  
+xorq $0x7, %r8                                                       
+cmovnll %esi, %r8d                                                   
+cmovpl %r11d, %r11d                                                  
+rclq $0x1, %rcx                                                      
+xaddq %rdx, %r10                                                     
+retq                                                                 
+
+********************************************************************************
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (0)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+movq %rsi, %r10                movq %rsi, %r10                   
+movl %edi, %edx                movl %edi, %edx                   
+stc                            stc                               
+blsrl %r10d, %ecx              blsrl %r10d, %ecx                 
+lzcntl %ecx, %eax              lzcntl %ecx, %eax                 
+imull %edx                     imull %edx                        
+sbbb %dh, %al                  sbbb %dh, %al                     
+blsrl %edi, %r9d               blsrl %edi, %r9d                  
+xchgl %edx, %r9d               xchgl %edx, %r9d                  
+cmovngew %dx, %di              cmovngew %dx, %di                 
+btsw $0xc0, %dx                btsw $0xc0, %dx                   
+addl %edx, %eax                addl %edx, %eax                   
+setna %cl                      setna %cl                         
+emms                           emms                              
+setc %ah                       setc %ah                          
+btrq %r9, %rdx                 btrq %r9, %rdx                    
+sbbw $0x80, %r9w               sbbw $0x80, %r9w                  
+movsbl %cl, %eax               movsbl %cl, %eax                  
+cmovpq %rax, %r11              cmovpq %rax, %r11                 
+cmovsw %r10w, %r11w            cmovsw %r10w, %r11w               
+rcrw %cl, %si                  rcrw %cl, %si                     
+salb $0x1, %ch                 salb $0x1, %ch                    
+shlw $0x1, %r9w                shlw $0x1, %r9w                   
+tzcntl %edx, %ecx              tzcntl %edx, %ecx                 
+addb %r10b, %r10b              addb %r10b, %r10b                 
+xaddb %ah, %ah                 xaddb %ah, %ah                    
+movb $0x10, %ah                movb $0x10, %ah                   
+orl $0xfffffff9, %edi          orl $0xfffffff9, %edi             
+xorq $0x0, %r10                xorq $0x0, %r10                   
+setc %ah                       setc %ah                          
+retq                           retq                              
+
+********************************************************************************
+
+Unable to verify new rewrite...
+
+********************************************************************************
+
+Restarting search using new testcase (counterexample from verifier):
+
+SIGNAL 0 [normal exit]
+
+%rax     7b 43 cb 76 a4 d9 fc 19
+%rcx     d6 c4 87 77 25 0a ce 0d
+%rdx     ae 03 0e d9 20 8a 42 ff
+%rbx     10 50 09 47 f6 59 30 4e
+%rsp     00 00 00 07 00 00 00 00
+%rbp     46 18 a1 3f a1 7c 6e cd
+%rsi     5a 3f 33 e4 16 91 4d 63
+%rdi     aa d7 98 a4 59 0f 6c b3
+%r8      ab 18 b9 38 0a d3 01 b6
+%r9      23 61 92 a4 d2 c0 e4 37
+%r10     b0 68 a8 8e af 72 d3 09
+%r11     b7 f2 bb dc c3 5c 73 40
+%r12     62 ba 2e 9c 91 0f 52 14
+%r13     bc c4 87 f5 d6 35 0d 2e
+%r14     fd 4a c5 aa b7 f7 83 12
+%r15     e3 5f 9b 0c e4 18 1e 5e
+
+%ymm0    08 fe c5 58 87 c8 b8 7b 80 d7 76 e2 51 50 0e a2 e1 43 1f 60 ce b3 7b 46 a3 aa b8 46 5f 8b 1e 55
+%ymm1    1f 7a 4f 21 71 c6 9b 19 20 0c f8 ef cc ee 08 93 bf 17 f4 2f b2 51 c6 e7 da 5d f8 2d 56 20 87 46
+%ymm2    52 46 85 b1 6d 79 92 de 84 e2 24 17 d9 cb 90 54 f1 00 54 89 17 dd 87 c4 40 9f 3d 13 35 62 e6 f7
+%ymm3    3c 80 23 e4 fd 6f 0e 37 51 24 a6 81 47 bf 5a f3 81 22 99 27 37 33 af ce 59 93 b5 bd c0 77 8d 09
+%ymm4    14 1e 72 31 38 ce d5 49 6b e7 43 24 a5 ee ec 75 ef d5 31 85 fe 59 98 b8 a6 e0 50 a6 82 9a 8a 2f
+%ymm5    60 97 ea 70 90 01 fd c3 ab 13 d6 49 2c ff c4 5b 8a 26 68 7f 4d 55 c3 8d 6a 33 08 d7 ce 56 64 bd
+%ymm6    0d 82 30 37 86 55 88 b1 60 c9 5f b5 c3 ec c0 72 1b c8 15 94 15 95 62 f0 ac 7a bb ef e6 8e e8 d9
+%ymm7    31 ee a2 b9 2c 1c 9c e6 f1 11 4d 69 30 b0 49 95 6a 1f 1b b0 5c 1f 91 12 8e 7b d3 e9 ad ab d1 47
+%ymm8    f5 1c 62 b8 84 5f e6 55 5c cd 41 06 5c 76 8b 58 81 60 0a b9 05 c8 38 77 b3 59 2a 98 d6 7d 29 cf
+%ymm9    23 99 13 92 e4 0a 57 48 ac 6b 59 79 8a 59 61 91 9c 61 1d 06 9e ae 56 9c 81 39 49 dd 34 02 0e b2
+%ymm10   ce cb 7d 52 b9 f3 fa 23 17 2b 09 ba 0f c6 ec c7 84 15 39 d9 fa ea b1 60 8e 46 3d cf b3 32 a8 12
+%ymm11   b2 90 0a 7a f5 df 06 cb ad ee 39 7f 71 90 08 70 46 37 fb 86 71 68 ae 50 85 27 e2 e2 8f 6a 5b 58
+%ymm12   c5 4d f0 61 89 ba 00 6a db 0d 82 0b 28 f7 ca 8f 7b 91 bc b4 e6 d7 3b 19 7d 3d 45 ac 8f a2 5b 0e
+%ymm13   77 06 a7 b7 46 08 28 87 ce 67 ec b7 24 e1 16 b2 bb b7 66 6a 28 67 ba 2c 38 d1 d0 cf 5c 72 a6 70
+%ymm14   d7 9e 69 15 18 81 d5 c8 50 f9 2d 75 ec e3 b4 ff 64 d6 c8 a6 56 c6 c0 37 7c 35 22 65 13 6f 1b 9b
+%ymm15   5c b0 67 6f 84 81 41 8f 8e 9e a8 94 b3 e1 de 4b 52 02 70 5d 7e 7a af 64 f2 b8 96 cf cc f9 5d 4c
+
+%cf      0 
+%1       1 
+%pf      1 
+%0       0 
+%af      0 
+%0       0 
+%zf      1 
+%sf      1 
+%tf      0 
+%if      1 
+%df      0 
+%of      1 
+%iopl[0] 0 
+%iopl[1] 0 
+%nt      0 
+%0       0 
+%rf      0 
+%vm      0 
+%ac      0 
+%vif     0 
+%vip     0 
+%id      0 
+
+[ 00000007 00000000 - 00000006 ffffffe0 ]
+[ 4 valid rows shown ]
+
+00000006 fffffff8   v v v v v v v v   14 0b d9 8c 1a a1 e6 9b 
+00000006 fffffff0   v v v v v v v v   03 6c 32 0c a7 fe b8 ea 
+00000006 ffffffe8   v v v v v v v v   56 5b 2c 80 25 23 ac 81 
+00000006 ffffffe0   v v v v v v v v   03 44 45 47 3e cc 57 1d 
+
+[ 00000001 00000000 - 00000001 00000000 ]
+[ 0 valid rows shown ]
+
+[ 00000000 00000000 - 00000000 00000000 ]
+[ 0 valid rows shown ]
+
+0 more segment(s)
+
+
+Running search (timeout is 1000000 iterations):
+
+Progress Update: 
+
+Lowest Cost Discovered (4)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+xorq %rax, %rax                pushq %rbp                        
+mulq %rdi                      movq %rsp, %rbp                   
+andb %al, %dh                  movl %edi, -0x14(%rbp)            
+emms                           movl %esi, -0x18(%rbp)            
+sete %r8b                      movl -0x18(%rbp), %eax            
+movw $0x7, %di                 notl %eax                         
+shlb $0x1, %ah                 movl %eax, -0x8(%rbp)             
+movzbl %sil, %r8d              movl -0x14(%rbp), %eax            
+addb $0x7, %al                 andl -0x8(%rbp), %eax             
+rorb $0x1, %ah                 movl %eax, -0x4(%rbp)             
+cltd                           movl -0x4(%rbp), %edx             
+rolw $0xf8, %di                movl -0x18(%rbp), %eax            
+setne %dl                      cmpl %eax, %edx                   
+cmovel %edi, %r10d             seta %al                          
+movzbl %r8b, %ecx              movzbl %al, %eax                  
+rolw $0x1, %cx                 popq %rbp                         
+setge %r11b                    retq                              
+addb %ah, %cl                                                    
+sbbl $0xffffffff, %esi                                           
+setnle %dh                                                       
+rolb $0x1, %dl                                                   
+cmovnbl %r8d, %esi                                               
+movb %dh, %al                                                    
+sbbb %al, %cl                                                    
+orb $0xf8, %sil                                                  
+blsmskq %rsi, %rax                                               
+cmpxchgb %ch, %dh                                                
+xchgl %ecx, %r8d                                                 
+rorb $0x1, %ah                                                   
+rolb %cl, %ah                                                    
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (3)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+movl $0x20, %eax               pushq %rbp                        
+movl $0x5, %r9d                movq %rsp, %rbp                   
+movslq %r9d, %rcx              movl %edi, -0x14(%rbp)            
+pextl %ecx, %ecx, %edx         movl %esi, -0x18(%rbp)            
+btq $0xf8, %rsi                movl -0x18(%rbp), %eax            
+btl %eax, %esi                 notl %eax                         
+movb %ah, %ah                  movl %eax, -0x8(%rbp)             
+andnl %edi, %esi, %r10d        movl -0x14(%rbp), %eax            
+rorxl $0x0, %esi, %ecx         andl -0x8(%rbp), %eax             
+movsbl %sil, %edx              movl %eax, -0x4(%rbp)             
+mulxl %r10d, %r8d, %esi        movl -0x4(%rbp), %edx             
+setng %dh                      movl -0x18(%rbp), %eax            
+incq %r8                       cmpl %eax, %edx                   
+sets %r11b                     seta %al                          
+negb %dil                      movzbl %al, %eax                  
+shldw %cl, %cx, %di            popq %rbp                         
+cmpxchgb %dl, %dh              retq                              
+shll $0xfe, %esi                                                 
+orl %eax, %r10d                                                  
+adcl $0x3, %edx                                                  
+xchgb %r8b, %r9b                                                 
+xchgb %dh, %cl                                                   
+movl %r8d, %edi                                                  
+setno %dh                                                        
+cmovleq %r8, %r9                                                 
+xaddw %dx, %si                                                   
+setle %r8b                                                       
+sarl $0x1, %ecx                                                  
+shlb $0x80, %ah                                                  
+testq $0xfffffff9, %rdx                                          
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (2)         Lowest Known Correct Cost (0)     
+                                                                     
+._Z3p11ii:                         ._Z3p11ii:                        
+pextq %rsi, %rsi, %rcx             pushq %rbp                        
+movl $0x5, %r11d                   movq %rsp, %rbp                   
+sarxl %ecx, %esi, %edx             movl %edi, -0x14(%rbp)            
+imulq $0x1, %rdx, %r8              movl %esi, -0x18(%rbp)            
+rorxq $0xf8, %r8, %r10             movl -0x18(%rbp), %eax            
+movzbl %sil, %eax                  notl %eax                         
+orq %rsi, %r10                     movl %eax, -0x8(%rbp)             
+setc %al                           movl -0x14(%rbp), %eax            
+imulq $0x0, %r8, %rdi              andl -0x8(%rbp), %eax             
+imulb %dh                          movl %eax, -0x4(%rbp)             
+adcb %dl, %al                      movl -0x4(%rbp), %edx             
+cmpq %rax, %rcx                    movl -0x18(%rbp), %eax            
+orw $0x4, %ax                      cmpl %eax, %edx                   
+cmpw %si, %r11w                    seta %al                          
+setnz %r11b                        movzbl %al, %eax                  
+leal -0x40(%r10,%r10,4), %r10d     popq %rbp                         
+orb $0xfa, %dh                     retq                              
+sbbl $0x10, %edi                                                     
+subq $0xffffffe0, %rdi                                               
+subb %ah, %dl                                                        
+subb %dh, %ch                                                        
+btrl %edi, %edx                                                      
+subl %r11d, %edi                                                     
+cmpw %r8w, %si                                                       
+setnb %dh                                                            
+subq $0x40, %rcx                                                     
+addl %r10d, %edx                                                     
+setg %dl                                                             
+shrdw $0xfc, %ax, %r10w                                              
+cmpxchgb %al, %dl                                                    
+retq                                                                 
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (1)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+lzcntl %esi, %edx              pushq %rbp                        
+cmpq %rdi, %rdx                movq %rsp, %rbp                   
+mulxq %rdx, %r11, %r9          movl %edi, -0x14(%rbp)            
+setle %ah                      movl %esi, -0x18(%rbp)            
+mulxl %edi, %r10d, %esi        movl -0x18(%rbp), %eax            
+setnz %ch                      notl %eax                         
+cmovgew %r11w, %si             movl %eax, -0x8(%rbp)             
+movslq %esi, %rcx              movl -0x14(%rbp), %eax            
+xorl %edi, %edi                andl -0x8(%rbp), %eax             
+sbbb %r11b, %cl                movl %eax, -0x4(%rbp)             
+rclq $0x1, %rsi                movl -0x4(%rbp), %edx             
+setnae %r10b                   movl -0x18(%rbp), %eax            
+sbbw %di, %di                  cmpl %eax, %edx                   
+testl %edi, %esi               seta %al                          
+movzwl %r9w, %r10d             movzbl %al, %eax                  
+orl $0x40, %r10d               popq %rbp                         
+incb %r9b                      retq                              
+setnp %dl                                                        
+xorb $0x40, %r11b                                                
+sall %cl, %ecx                                                   
+setns %dl                                                        
+orb $0x3, %r10b                                                  
+setb %r10b                                                       
+btl $0x10, %r11d                                                 
+bzhiq %rsi, %rdx, %rax                                           
+rclb $0x1, %r11b                                                 
+cmovnbq %r9, %r10                                                
+leaq 0x6(%r10,%r9,2), %r11                                       
+imulq %rdi, %rdi                                                 
+rclb %cl, %ch                                                    
+retq                                                             
+
+********************************************************************************
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (0)       Lowest Known Correct Cost (0)     
+                                                                   
+._Z3p11ii:                       ._Z3p11ii:                        
+lzcntl %esi, %ecx                lzcntl %esi, %ecx                 
+subl %edi, %esi                  subl %edi, %esi                   
+movzbq %dil, %rax                movzbq %dil, %rax                 
+rcrl %cl, %ecx                   rcrl %cl, %ecx                    
+testl $0xfffffff8, %eax          testl $0xfffffff8, %eax           
+popcntq %rcx, %rdx               popcntq %rcx, %rdx                
+setpe %dh                        setpe %dh                         
+shlw %cl, %cx                    shlw %cl, %cx                     
+xaddb %cl, %ch                   xaddb %cl, %ch                    
+movq $0x4, %rsi                  movq $0x4, %rsi                   
+rolw %cl, %ax                    rolw %cl, %ax                     
+sarb %cl, %ch                    sarb %cl, %ch                     
+mulxl %esi, %eax, %esi           mulxl %esi, %eax, %esi            
+cmpb %dh, %dh                    cmpb %dh, %dh                     
+clc                              clc                               
+sbbb %al, %sil                   sbbb %al, %sil                    
+leaq -0x1(%edi,%eax,4), %rax     leaq -0x1(%edi,%eax,4), %rax      
+setnb %dh                        setnb %dh                         
+rclw $0x1, %cx                   rclw $0x1, %cx                    
+andb %al, %dh                    andb %al, %dh                     
+subb %ch, %dl                    subb %ch, %dl                     
+orb %ch, %al                     orb %ch, %al                      
+cmpb %cl, %ch                    cmpb %cl, %ch                     
+andnl %esi, %esi, %r11d          andnl %esi, %esi, %r11d           
+setnl %al                        setnl %al                         
+cmovnaw %cx, %r11w               cmovnaw %cx, %r11w                
+cmovlel %r11d, %eax              cmovlel %r11d, %eax               
+movl $0x2, %edx                  movl $0x2, %edx                   
+sbbw %ax, %cx                    sbbw %ax, %cx                     
+shll %cl, %r11d                  shll %cl, %r11d                   
+retq                             retq                              
+
+********************************************************************************
+
+Unable to verify new rewrite...
+
+********************************************************************************
+
+Restarting search using new testcase (counterexample from verifier):
+
+SIGNAL 0 [normal exit]
+
+%rax     b0 a3 e8 25 ef 2f 13 79
+%rcx     72 f6 15 c9 fa 57 29 2b
+%rdx     5a cf 4b 1d 16 42 24 89
+%rbx     ef 71 19 37 cc 6c 27 fc
+%rsp     00 00 00 07 00 00 00 00
+%rbp     bb f8 76 30 bb ea 59 e0
+%rsi     f2 ee 5b f4 65 3a 2b 3c
+%rdi     86 9c ab 30 6b be ad 7a
+%r8      11 19 cf 99 fe b4 2b 9d
+%r9      e1 45 e2 8c 72 32 5c 50
+%r10     97 86 f9 bb 12 3e cc 99
+%r11     53 19 06 a8 24 31 26 f8
+%r12     d4 e3 a5 20 c4 77 21 b5
+%r13     23 ad 0e e6 5a b1 5e 75
+%r14     74 31 b8 e9 60 b5 66 97
+%r15     ab 6e 1d c7 94 74 81 91
+
+%ymm0    ba f3 30 eb 58 72 df 28 e1 bd bd b3 a5 26 ed 6c 91 2e 47 d2 9a bb e1 a5 f9 c3 98 6d 4c 80 60 48
+%ymm1    8d db 8d 9b 24 76 ad 8d 73 b8 b4 10 60 e3 77 d4 5e a6 9d 25 01 fb 67 de fa a5 8a 47 5d 8d a5 c0
+%ymm2    cd 97 7e db f4 09 8f 23 df 66 ea 7e 7c 83 8f ed e4 61 33 47 fe 6d 4b 30 89 5d 83 8e 19 60 d1 d7
+%ymm3    0e f5 bf b9 64 d1 f7 e9 e8 15 ed c5 36 0f 35 32 4a d2 6a a8 e6 11 13 d6 3a 3e 74 13 5c 3a 1d 4b
+%ymm4    b2 6d 31 4b d8 b4 76 41 f5 d7 50 45 ee 13 d7 c6 40 ca 9a 10 c4 63 5d a2 05 ef 51 58 f8 3a 31 b9
+%ymm5    d6 06 ef f3 ea 93 9e 46 c4 31 ef de 7c 59 47 b9 55 08 45 42 1a 79 7d 1a 30 4e e1 98 55 59 ee 4e
+%ymm6    c4 1a d3 4d 05 d7 e2 b2 ba 30 2e 2d 9e d5 fc 3b d5 02 ba 62 e2 0e 33 f5 d0 7f 5f 80 89 e2 6b d3
+%ymm7    97 2d ec 84 98 51 ab 29 78 a2 cb 92 48 a8 69 fa 54 52 ca 86 3f 33 90 4a 6c 57 93 13 09 e9 45 28
+%ymm8    c1 2d a2 d6 48 68 bc 3a db d0 16 f8 53 6c 1a ae c6 2f 1a 48 de 75 f9 67 e1 bd e0 fd b0 36 ea fb
+%ymm9    37 61 ed 65 7e e3 d3 fd b2 42 33 ed ed ae 9b 14 3e 55 8f 84 94 4e a9 ea 47 11 02 b0 22 aa be 7d
+%ymm10   c2 49 bb 24 b3 81 41 2f 27 c0 53 9a 9a d7 a6 76 ab c9 e9 c4 73 aa 57 ba 0e 95 54 6a e5 16 3b 3a
+%ymm11   2f 7d ca 21 ce f1 d4 8f 42 5f f6 91 33 8d 69 e2 32 76 11 74 32 0c 76 aa ee b2 b3 f3 54 2d 4e 5e
+%ymm12   62 c6 17 57 5e cf f6 8a 53 13 9d 47 5f f7 6f 9e fc 34 0d dd 74 75 d0 21 2a 9f 13 f5 e9 26 24 eb
+%ymm13   a4 54 b0 db 84 ac 8c ed 64 03 4c 46 c8 7f b1 8b c3 88 37 61 7d 94 ad 6e 6a 2e b6 39 85 a8 fc 8a
+%ymm14   59 0a 1d b0 68 df 3a c0 28 be b1 fa 10 37 e8 c9 07 84 67 17 68 27 e2 30 8f 89 a4 85 e8 67 fe 63
+%ymm15   4b 32 0d 34 e9 d7 34 93 34 0b 20 7a fa ce 6b 84 2b 97 64 5a 93 0c 25 50 51 7e 92 ca 05 35 c5 b3
+
+%cf      0 
+%1       1 
+%pf      0 
+%0       0 
+%af      0 
+%0       0 
+%zf      0 
+%sf      0 
+%tf      0 
+%if      1 
+%df      0 
+%of      0 
+%iopl[0] 0 
+%iopl[1] 0 
+%nt      0 
+%0       0 
+%rf      0 
+%vm      0 
+%ac      0 
+%vif     0 
+%vip     0 
+%id      0 
+
+[ 00000007 00000000 - 00000006 ffffffe0 ]
+[ 4 valid rows shown ]
+
+00000006 fffffff8   v v v v v v v v   1b f0 2d be 06 83 73 d1 
+00000006 fffffff0   v v v v v v v v   65 89 65 2c 96 7e 20 a1 
+00000006 ffffffe8   v v v v v v v v   ef e2 41 0b d2 bb 8f 77 
+00000006 ffffffe0   v v v v v v v v   79 37 de 46 eb d4 62 40 
+
+[ 00000001 00000000 - 00000001 00000000 ]
+[ 0 valid rows shown ]
+
+[ 00000000 00000000 - 00000000 00000000 ]
+[ 0 valid rows shown ]
+
+0 more segment(s)
+
+
+Running search (timeout is 1000000 iterations):
+
+Progress Update: 
+
+Lowest Cost Discovered (7)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+movslq %esi, %r10              pushq %rbp                        
+movl %r10d, %eax               movq %rsp, %rbp                   
+salb $0x1, %ah                 movl %edi, -0x14(%rbp)            
+movzwq %ax, %r11               movl %esi, -0x18(%rbp)            
+movl %edi, %r8d                movl -0x18(%rbp), %eax            
+xchgl %r8d, %r10d              notl %eax                         
+testw $0x10, %r8w              movl %eax, -0x8(%rbp)             
+negq %r11                      movl -0x14(%rbp), %eax            
+movzbq %sil, %rdx              andl -0x8(%rbp), %eax             
+setpo %ch                      movl %eax, -0x4(%rbp)             
+rorxl $0xfd, %esi, %r11d       movl -0x4(%rbp), %edx             
+subb %dil, %dil                movl -0x18(%rbp), %eax            
+andnl %r10d, %r8d, %r11d       cmpl %eax, %edx                   
+cmpw %dx, %r11w                seta %al                          
+setz %ch                       movzbl %al, %eax                  
+mulxl %edi, %edi, %eax         popq %rbp                         
+setna %al                      retq                              
+cmovngw %r10w, %di                                               
+orw $0xfffb, %dx                                                 
+bsfw %di, %r9w                                                   
+btw $0x20, %ax                                                   
+lzcntq %rsi, %r8                                                 
+addb %ah, %al                                                    
+imulw $0xfff9, %r8w, %cx                                         
+shlxl %esi, %edx, %r10d                                          
+rolq $0x8, %r10                                                  
+btcl $0x10, %edx                                                 
+adcl %eax, %r11d                                                 
+setnbe %r11b                                                     
+rorl %cl, %r11d                                                  
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (5)         Lowest Known Correct Cost (0)     
+                                                                     
+._Z3p11ii:                         ._Z3p11ii:                        
+movq $0xfffffffffffffffb, %rax     pushq %rbp                        
+andl $0xffffffc0, %esi             movq %rsp, %rbp                   
+orb %ah, %ah                       movl %edi, -0x14(%rbp)            
+movzwl %di, %r8d                   movl %esi, -0x18(%rbp)            
+movl %esi, %esi                    movl -0x18(%rbp), %eax            
+rorxl $0xf0, %r8d, %edx            notl %eax                         
+cmovnpq %rdx, %rdi                 movl %eax, -0x8(%rbp)             
+setpo %al                          movl -0x14(%rbp), %eax            
+movl %esi, %ecx                    andl -0x8(%rbp), %eax             
+bzhil %eax, %eax, %r9d             movl %eax, -0x4(%rbp)             
+lzcntq %rcx, %rcx                  movl -0x4(%rbp), %edx             
+orl %esi, %r9d                     movl -0x18(%rbp), %eax            
+setnle %cl                         cmpl %eax, %edx                   
+movsbl %ch, %edx                   seta %al                          
+shll %cl, %eax                     movzbl %al, %eax                  
+subq $0x7, %rax                    popq %rbp                         
+cmpl %ecx, %esi                    retq                              
+addw $0x2, %cx                                                       
+cmpw $0x40, %r8w                                                     
+cmovngl %edx, %r9d                                                   
+rorxl $0x10, %esi, %r10d                                             
+shrl $0x80, %r8d                                                     
+cmovnzq %rcx, %rax                                                   
+cmpq $0xffffffff, %rax                                               
+rclb $0x1, %dh                                                       
+sbbw %r8w, %si                                                       
+andb %dh, %al                                                        
+setae %dh                                                            
+subq %r8, %rsi                                                       
+cmovnbl %r10d, %ecx                                                  
+retq                                                                 
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (3)         Lowest Known Correct Cost (0)     
+                                                                     
+._Z3p11ii:                         ._Z3p11ii:                        
+movl %edi, %r10d                   pushq %rbp                        
+movq $0xfffffffffffffff9, %r11     movq %rsp, %rbp                   
+shll $0x1, %esi                    movl %edi, -0x14(%rbp)            
+movswq %si, %rcx                   movl %esi, -0x18(%rbp)            
+setg %dh                           movl -0x18(%rbp), %eax            
+movsbl %dh, %eax                   notl %eax                         
+sets %r9b                          movl %eax, -0x8(%rbp)             
+sarxl %edi, %r11d, %r8d            movl -0x14(%rbp), %eax            
+crc32b %dh, %esi                   andl -0x8(%rbp), %eax             
+cmovbl %edi, %r10d                 movl %eax, -0x4(%rbp)             
+adcq $0x7, %r10                    movl -0x4(%rbp), %edx             
+cmovzl %edi, %esi                  movl -0x18(%rbp), %eax            
+bzhil %eax, %r8d, %eax             cmpl %eax, %edx                   
+movw %r10w, %cx                    seta %al                          
+cmovnlw %cx, %dx                   movzbl %al, %eax                  
+setnge %dh                         popq %rbp                         
+setg %cl                           retq                              
+cmpq $0xffffff80, %r10                                               
+cltd                                                                 
+cmpl $0x10, %edx                                                     
+sete %ah                                                             
+cmovbw %si, %r9w                                                     
+rolb %cl, %ch                                                        
+rclb $0xe0, %al                                                      
+testw %r10w, %r8w                                                    
+setnae %r8b                                                          
+cmovzl %r11d, %r9d                                                   
+movzbl %r10b, %ecx                                                   
+btsw %cx, %r11w                                                      
+cmpb $0xff, %al                                                      
+retq                                                                 
+
+********************************************************************************
+
+Statistics Update: 
+
+Iterations:                    1000000
+Elapsed Time:                  49.8295s
+Iterations/s:                  20068.4
+
+Starting cost:                 9
+Lowest cost:                   3
+Lowest correct cost:           0
+
+Move Type       Proposed     Succeeded     Accepted     
+                                                        
+Add Nops        0%           0%            0%           
+Delete          0%           0%            0%           
+Instruction     24.9233%     12.1003%      7.2703%      
+Opcode          25.0407%     19.8259%      17.9621%     
+OpcodeWidth     0%           0%            0%           
+Operand         25.0164%     20.7694%      19.181%      
+Local Swap      25.0196%     11.6256%      10.0311%     
+Global Swap     0%           0%            0%           
+Rotate          0%           0%            0%           
+                                                        
+Total           100%         64.3212%      54.4445%     
+
+********************************************************************************
+
+Unable to discover a new correct rewrite before timing out... 
+
+********************************************************************************
+
+Restarting search
+Running search (timeout is 1000000 iterations):
+
+Progress Update: 
+
+Lowest Cost Discovered (8)        Lowest Known Correct Cost (0)     
+                                                                    
+._Z3p11ii:                        ._Z3p11ii:                        
+lzcntl %edi, %r10d                pushq %rbp                        
+setb %r10b                        movq %rsp, %rbp                   
+movq $0x8, %rax                   movl %edi, -0x14(%rbp)            
+cltd                              movl %esi, -0x18(%rbp)            
+sarxl %edx, %edx, %r9d            movl -0x18(%rbp), %eax            
+imull $0x20, %edi, %r11d          notl %eax                         
+btcw %r11w, %ax                   movl %eax, -0x8(%rbp)             
+andb %dh, %dh                     movl -0x14(%rbp), %eax            
+shrxl %esi, %edx, %r11d           andl -0x8(%rbp), %eax             
+cmpxchgl %r9d, %r10d              movl %eax, -0x4(%rbp)             
+imulq $0xfffffff9, %rdi, %rax     movl -0x4(%rbp), %edx             
+addb %ah, %ah                     movl -0x18(%rbp), %eax            
+xchgb %dl, %dil                   cmpl %eax, %edx                   
+lzcntw %dx, %r10w                 seta %al                          
+setb %ch                          movzbl %al, %eax                  
+testb $0x1, %ch                   popq %rbp                         
+cmovnlew %ax, %r11w               retq                              
+xorb %ah, %ch                                                       
+setnp %r10b                                                         
+shlxl %esi, %eax, %edx                                              
+xorq %rax, %rax                                                     
+xchgw %ax, %r10w                                                    
+setl %ah                                                            
+cmpb %al, %ah                                                       
+andb %dh, %ch                                                       
+cmovnaew %r11w, %di                                                 
+setp %dh                                                            
+xorw %si, %di                                                       
+cmovgw %r9w, %di                                                    
+incb %ch                                                            
+retq                                                                
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (7)        Lowest Known Correct Cost (0)     
+                                                                    
+._Z3p11ii:                        ._Z3p11ii:                        
+testl $0xffffffc0, %esi           pushq %rbp                        
+movq $0xfffffffffffffff0, %r8     movq %rsp, %rbp                   
+movsbl %r8b, %eax                 movl %edi, -0x14(%rbp)            
+movzbq %r8b, %r10                 movl %esi, -0x18(%rbp)            
+imulq $0xfffffffc, %rsi, %rcx     movl -0x18(%rbp), %eax            
+tzcntl %ecx, %edi                 notl %eax                         
+movsbq %sil, %r9                  movl %eax, -0x8(%rbp)             
+andq %rsi, %rax                   movl -0x14(%rbp), %eax            
+setno %r10b                       andl -0x8(%rbp), %eax             
+lzcntl %eax, %esi                 movl %eax, -0x4(%rbp)             
+setna %dh                         movl -0x4(%rbp), %edx             
+bsrq %rsi, %rdi                   movl -0x18(%rbp), %eax            
+orq $0xffffff80, %r8              cmpl %eax, %edx                   
+salb %cl, %ah                     seta %al                          
+xchgw %r8w, %ax                   movzbl %al, %eax                  
+andq %rsi, %r10                   popq %rbp                         
+setnbe %dl                        retq                              
+pextl %eax, %eax, %edi                                              
+cmpq %rsi, %r9                                                      
+imull %r9d                                                          
+testq $0x5, %rdx                                                    
+rorw $0x8, %di                                                      
+crc32l %edx, %r9d                                                   
+testw $0xfffc, %ax                                                  
+adcb %ch, %dh                                                       
+xchgl %edx, %ecx                                                    
+cmpxchgq %r8, %r10                                                  
+sall $0xe0, %ecx                                                    
+btcq $0x6, %rsi                                                     
+blsrq %r9, %rcx                                                     
+retq                                                                
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (6)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+shlw $0xfe, %si                pushq %rbp                        
+leaq -0x4(,%edi,1), %r10       movq %rsp, %rbp                   
+movzwl %si, %edi               movl %edi, -0x14(%rbp)            
+movq %r10, %rcx                movl %esi, -0x18(%rbp)            
+orb $0x10, %cl                 movl -0x18(%rbp), %eax            
+movzbl %dil, %eax              notl %eax                         
+cltd                           movl %eax, -0x8(%rbp)             
+andl $0xfffffffe, %eax         movl -0x14(%rbp), %eax            
+subw $0x40, %ax                andl -0x8(%rbp), %eax             
+testb $0xe0, %al               movl %eax, -0x4(%rbp)             
+setl %al                       movl -0x4(%rbp), %edx             
+movb %ah, %dh                  movl -0x18(%rbp), %eax            
+rcrb $0x7, %ah                 cmpl %eax, %edx                   
+cmovpoq %rdx, %r10             seta %al                          
+movb $0x4, %dil                movzbl %al, %eax                  
+salb $0x1, %cl                 popq %rbp                         
+rolq %cl, %rdi                 retq                              
+shrq %cl, %rdx                                                   
+andl %edi, %eax                                                  
+cmovew %cx, %r11w                                                
+shlq $0x1, %rsi                                                  
+addw $0x5, %dx                                                   
+movsbq %dil, %r8                                                 
+shlw $0x80, %ax                                                  
+clc                                                              
+mfence                                                           
+xorq $0xffffff80, %rdx                                           
+sbbq $0xffffff80, %rcx                                           
+cmovnaq %rsi, %rdi                                               
+shlb %cl, %ah                                                    
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (5)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+lzcntw %si, %r10w              pushq %rbp                        
+movsbl %r10b, %eax             movq %rsp, %rbp                   
+clc                            movl %edi, -0x14(%rbp)            
+bswap %eax                     movl %esi, -0x18(%rbp)            
+lzcntl %esi, %r11d             movl -0x18(%rbp), %eax            
+xorw $0x3, %r10w               notl %eax                         
+xchgl %eax, %esi               movl %eax, -0x8(%rbp)             
+setz %al                       movl -0x14(%rbp), %eax            
+btcw %di, %si                  andl -0x8(%rbp), %eax             
+tzcntl %eax, %edx              movl %eax, -0x4(%rbp)             
+movl $0x40, %r9d               movl -0x4(%rbp), %edx             
+btsl $0x20, %esi               movl -0x18(%rbp), %eax            
+movswl %r11w, %r9d             cmpl %eax, %edx                   
+subq $0x2, %rsi                seta %al                          
+setg %r8b                      movzbl %al, %eax                  
+imull $0x0, %eax, %r10d        popq %rbp                         
+adcq $0x6, %rdi                retq                              
+shlb $0xf8, %ah                                                  
+cmpq %rax, %rsi                                                  
+xaddw %di, %ax                                                   
+sete %sil                                                        
+cmpxchgw %r11w, %r11w                                            
+xorb %dil, %r10b                                                 
+sall $0x1, %r9d                                                  
+setnz %dl                                                        
+orq $0xfffffff9, %rax                                            
+mulxq %r11, %r8, %r8                                             
+movsbl %r9b, %esi                                                
+xchgw %ax, %si                                                   
+xchgl %edx, %eax                                                 
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (3)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+lzcntw %si, %r10w              pushq %rbp                        
+movzbl %r10b, %eax             movq %rsp, %rbp                   
+clc                            movl %edi, -0x14(%rbp)            
+imull $0x0, %esi, %r10d        movl %esi, -0x18(%rbp)            
+lzcntl %esi, %r11d             movl -0x18(%rbp), %eax            
+bswap %eax                     notl %eax                         
+andw %di, %r11w                movl %eax, -0x8(%rbp)             
+popcntw %r11w, %di             movl -0x14(%rbp), %eax            
+adcb $0xf9, %ah                andl -0x8(%rbp), %eax             
+popcntl %edi, %edx             movl %eax, -0x4(%rbp)             
+movl $0x40, %r9d               movl -0x4(%rbp), %edx             
+shlq $0x2, %rsi                movl -0x18(%rbp), %eax            
+testq $0xfffffff9, %rax        cmpl %eax, %edx                   
+orq $0x5, %rsi                 seta %al                          
+setg %r8b                      movzbl %al, %eax                  
+xchgw %ax, %si                 popq %rbp                         
+orq $0x6, %r10                 retq                              
+movswl %r11w, %r9d                                               
+xaddb %sil, %r11b                                                
+setpo %r11b                                                      
+sete %sil                                                        
+orw $0x3, %r10w                                                  
+mfence                                                           
+sall $0x1, %r9d                                                  
+setnz %dl                                                        
+xchgl %eax, %esi                                                 
+cmovnzw %di, %r11w                                               
+movzbl %r9b, %esi                                                
+shlb $0xf8, %ah                                                  
+xchgl %edx, %eax                                                 
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (1)         Lowest Known Correct Cost (0)     
+                                                                     
+._Z3p11ii:                         ._Z3p11ii:                        
+imull $0xffffffe0, %esi, %r10d     pushq %rbp                        
+movzbl %r10b, %eax                 movq %rsp, %rbp                   
+cltd                               movl %edi, -0x14(%rbp)            
+movq $0x40, %rax                   movl %esi, -0x18(%rbp)            
+lzcntl %esi, %r11d                 movl -0x18(%rbp), %eax            
+setz %sil                          notl %eax                         
+movl $0x1, %r9d                    movl %eax, -0x8(%rbp)             
+orl %edi, %r9d                     movl -0x14(%rbp), %eax            
+setpe %ch                          andl -0x8(%rbp), %eax             
+cmovcw %r11w, %r10w                movl %eax, -0x4(%rbp)             
+cmovnel %r11d, %r9d                movl -0x4(%rbp), %edx             
+cmovlw %r11w, %r10w                movl -0x18(%rbp), %eax            
+cmovoq %r9, %rsi                   cmpl %eax, %edx                   
+xchgl %edi, %edi                   seta %al                          
+testl $0xfffffffa, %eax            movzbl %al, %eax                  
+sbbb %ah, %al                      popq %rbp                         
+cmovew %r11w, %r10w                retq                              
+imulw $0x4, %dx, %si                                                 
+btsq %r10, %r9                                                       
+btcq $0x0, %rdx                                                      
+movzbw %dh, %ax                                                      
+rcrb $0x20, %dh                                                      
+salw $0xe0, %r11w                                                    
+sarl $0x1, %r9d                                                      
+salq $0x1, %r9                                                       
+setnbe %dl                                                           
+shlxl %r11d, %r9d, %r11d                                             
+subl $0xfffffffb, %r9d                                               
+xchgl %edx, %eax                                                     
+popcntq %rsi, %r10                                                   
+retq                                                                 
+
+********************************************************************************
+
+Statistics Update: 
+
+Iterations:                    1000000
+Elapsed Time:                  49.9676s
+Iterations/s:                  20013
+
+Starting cost:                 9
+Lowest cost:                   1
+Lowest correct cost:           0
+
+Move Type       Proposed     Succeeded     Accepted     
+                                                        
+Add Nops        0%           0%            0%           
+Delete          0%           0%            0%           
+Instruction     24.9525%     12.1282%      7.1888%      
+Opcode          25.0574%     19.9085%      17.8718%     
+OpcodeWidth     0%           0%            0%           
+Operand         24.9365%     20.806%       19.0647%     
+Local Swap      25.0536%     11.709%       9.9915%      
+Global Swap     0%           0%            0%           
+Rotate          0%           0%            0%           
+                                                        
+Total           100%         64.5517%      54.1168%     
+
+********************************************************************************
+
+Unable to discover a new correct rewrite before timing out... 
+
+********************************************************************************
+
+Restarting search
+Running search (timeout is 1000000 iterations):
+
+Progress Update: 
+
+Lowest Cost Discovered (5)         Lowest Known Correct Cost (0)     
+                                                                     
+._Z3p11ii:                         ._Z3p11ii:                        
+xorq %rax, %rax                    pushq %rbp                        
+addl $0xffffffe0, %esi             movq %rsp, %rbp                   
+setno %ch                          movl %edi, -0x14(%rbp)            
+emms                               movl %esi, -0x18(%rbp)            
+rcrb $0x1, %ah                     movl -0x18(%rbp), %eax            
+emms                               notl %eax                         
+cmovleq %rsi, %rsi                 movl %eax, -0x8(%rbp)             
+cmovcl %edi, %esi                  movl -0x14(%rbp), %eax            
+cmpb %ah, %al                      andl -0x8(%rbp), %eax             
+cbtw                               movl %eax, -0x4(%rbp)             
+cwtd                               movl -0x4(%rbp), %edx             
+emms                               movl -0x18(%rbp), %eax            
+adcl %esi, %esi                    cmpl %eax, %edx                   
+cmc                                seta %al                          
+rcll $0x1, %eax                    movzbl %al, %eax                  
+xchgw %di, %dx                     popq %rbp                         
+andb $0x6, %dil                    retq                              
+clc                                                                  
+setle %r11b                                                          
+movq $0xfffffffffffffffd, %r11                                       
+cqto                                                                 
+movb %r11b, %r11b                                                    
+subw %di, %di                                                        
+addw %dx, %dx                                                        
+clc                                                                  
+sbbb $0xfe, %sil                                                     
+pause                                                                
+subb %ah, %ch                                                        
+movw $0xfff8, %r9w                                                   
+subw $0x20, %di                                                      
+retq                                                                 
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (4)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+movl %esi, %eax                pushq %rbp                        
+movl $0xffffff80, %r11d        movq %rsp, %rbp                   
+cltd                           movl %edi, -0x14(%rbp)            
+popcntq %r11, %rcx             movl %esi, -0x18(%rbp)            
+bsrl %esi, %r8d                movl -0x18(%rbp), %eax            
+orb $0x40, %ah                 notl %eax                         
+subb %al, %ah                  movl %eax, -0x8(%rbp)             
+cmpxchgb %al, %dl              movl -0x14(%rbp), %eax            
+setl %cl                       andl -0x8(%rbp), %eax             
+cmpq $0xfffffff9, %rax         movl %eax, -0x4(%rbp)             
+imulq $0x6, %rsi, %r9          movl -0x4(%rbp), %edx             
+sarb %cl, %r9b                 movl -0x18(%rbp), %eax            
+adcb %cl, %dl                  cmpl %eax, %edx                   
+setna %dh                      seta %al                          
+subb %dil, %cl                 movzbl %al, %eax                  
+xorw $0x2, %di                 popq %rbp                         
+cmovngew %r11w, %dx            retq                              
+seto %r10b                                                       
+andnl %edx, %r11d, %eax                                          
+orb %dh, %ch                                                     
+testq $0xffffff80, %rax                                          
+movb %sil, %r11b                                                 
+cmovnsl %eax, %edi                                               
+cmovpw %cx, %r8w                                                 
+orw %si, %di                                                     
+cmovlw %dx, %di                                                  
+cmovleq %rdx, %r10                                               
+shrw $0x1, %cx                                                   
+movl $0x3, %r8d                                                  
+rclb $0x1, %sil                                                  
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (3)       Lowest Known Correct Cost (0)     
+                                                                   
+._Z3p11ii:                       ._Z3p11ii:                        
+movq %rsi, %r9                   pushq %rbp                        
+lzcntl %esi, %ecx                movq %rsp, %rbp                   
+pextl %ecx, %edi, %r10d          movl %edi, -0x14(%rbp)            
+cmpl $0xfffffffb, %edi           movl %esi, -0x18(%rbp)            
+setpo %dh                        movl -0x18(%rbp), %eax            
+shlb $0x1, %r9b                  notl %eax                         
+popcntl %r10d, %edx              movl %eax, -0x8(%rbp)             
+leaq 0x40(%rsi,%rcx,1), %rax     movl -0x14(%rbp), %eax            
+orb %ah, %cl                     andl -0x8(%rbp), %eax             
+orb %ch, %al                     movl %eax, -0x4(%rbp)             
+xorb $0xc0, %dl                  movl -0x4(%rbp), %edx             
+btrl %edx, %esi                  movl -0x18(%rbp), %eax            
+blsrl %r10d, %r8d                cmpl %eax, %edx                   
+andq %r9, %rdi                   seta %al                          
+orb $0xff, %dl                   movzbl %al, %eax                  
+leaw 0x20(,%edx,2), %r11w        popq %rbp                         
+mulw %si                         retq                              
+testq %rdx, %rdx                                                   
+btsl %esi, %r9d                                                    
+adcw $0x1, %ax                                                     
+sbbl %r8d, %esi                                                    
+movb %r10b, %sil                                                   
+rolq %cl, %r8                                                      
+movslq %edi, %r9                                                   
+setnp %ah                                                          
+shrb $0x1, %r11b                                                   
+cmovnbq %r10, %rax                                                 
+adcw %ax, %r10w                                                    
+setnbe %al                                                         
+cmovngq %r9, %r9                                                   
+retq                                                               
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (2)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+lzcntl %edi, %r10d             pushq %rbp                        
+movsbl %r10b, %edx             movq %rsp, %rbp                   
+cmovnzl %esi, %esi             movl %edi, -0x14(%rbp)            
+rorxl $0xfe, %esi, %r9d        movl %esi, -0x18(%rbp)            
+movzwq %si, %rcx               movl -0x18(%rbp), %eax            
+shlb $0xff, %cl                notl %eax                         
+xorl %eax, %eax                movl %eax, -0x8(%rbp)             
+movswl %r9w, %r11d             movl -0x14(%rbp), %eax            
+cmpw $0x7, %di                 andl -0x8(%rbp), %eax             
+rclw %cl, %dx                  movl %eax, -0x4(%rbp)             
+cmovnpl %r11d, %edx            movl -0x4(%rbp), %edx             
+movslq %esi, %r8               movl -0x18(%rbp), %eax            
+cmpl $0xfffffff8, %eax         cmpl %eax, %edx                   
+movzbl %dh, %esi               seta %al                          
+adcq $0x6, %rax                movzbl %al, %eax                  
+cmpb %ah, %ch                  popq %rbp                         
+cmovlew %si, %ax               retq                              
+cmovnzl %ecx, %ecx                                               
+incb %r10b                                                       
+cmovngq %rax, %rsi                                               
+negl %esi                                                        
+setpe %dh                                                        
+movb %dl, %sil                                                   
+setge %ch                                                        
+subq %r8, %rdi                                                   
+cmovbel %eax, %edx                                               
+cmovngew %si, %r8w                                               
+cmovpoq %r9, %rsi                                                
+xchgb %dh, %al                                                   
+shrw $0xfe, %dx                                                  
+retq                                                             
+
+********************************************************************************
+
+Statistics Update: 
+
+Iterations:                    1000000
+Elapsed Time:                  50.4013s
+Iterations/s:                  19840.7
+
+Starting cost:                 9
+Lowest cost:                   2
+Lowest correct cost:           0
+
+Move Type       Proposed     Succeeded     Accepted     
+                                                        
+Add Nops        0%           0%            0%           
+Delete          0%           0%            0%           
+Instruction     24.939%      12.1323%      7.2456%      
+Opcode          25.0739%     19.9715%      18.051%      
+OpcodeWidth     0%           0%            0%           
+Operand         25.018%      20.8326%      19.1432%     
+Local Swap      24.9691%     11.6399%      9.9392%      
+Global Swap     0%           0%            0%           
+Rotate          0%           0%            0%           
+                                                        
+Total           100%         64.5763%      54.379%      
+
+********************************************************************************
+
+Unable to discover a new correct rewrite before timing out... 
+
+********************************************************************************
+
+Restarting search
+Running search (timeout is 1000000 iterations):
+
+Progress Update: 
+
+Lowest Cost Discovered (8)       Lowest Known Correct Cost (0)     
+                                                                   
+._Z3p11ii:                       ._Z3p11ii:                        
+rorxl $0x80, %edi, %eax          pushq %rbp                        
+verr %ax                         movq %rsp, %rbp                   
+leal 0x1(%eax,%esi,2), %r10d     movl %edi, -0x14(%rbp)            
+subw $0xffff, %si                movl %esi, -0x18(%rbp)            
+verw %si                         movl -0x18(%rbp), %eax            
+adcb $0x1, %al                   notl %eax                         
+xorl %edi, %eax                  movl %eax, -0x8(%rbp)             
+movq $0x2, %rdx                  movl -0x14(%rbp), %eax            
+shrw $0x40, %di                  andl -0x8(%rbp), %eax             
+cmpq $0xfffffff9, %rax           movl %eax, -0x4(%rbp)             
+mulxl %eax, %ecx, %r8d           movl -0x4(%rbp), %edx             
+testb $0xfc, %al                 movl -0x18(%rbp), %eax            
+setno %ah                        cmpl %eax, %edx                   
+rolb $0x1, %dl                   seta %al                          
+xchgb %ch, %dh                   movzbl %al, %eax                  
+andw $0xffff, %ax                popq %rbp                         
+xorq $0x4, %r10                  retq                              
+subl %eax, %esi                                                    
+setle %dl                                                          
+addb $0xc0, %dh                                                    
+cmovnzw %cx, %si                                                   
+tzcntl %edx, %edx                                                  
+andb %ch, %ah                                                      
+cmpxchgl %esi, %edx                                                
+cmovel %eax, %r9d                                                  
+cmovgeq %rsi, %r8                                                  
+setnae %al                                                         
+movzwl %ax, %esi                                                   
+shlb $0x1, %dil                                                    
+orl %esi, %ecx                                                     
+retq                                                               
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (5)       Lowest Known Correct Cost (0)     
+                                                                   
+._Z3p11ii:                       ._Z3p11ii:                        
+movq $0x2, %rdx                  pushq %rbp                        
+popcntw %si, %r11w               movq %rsp, %rbp                   
+andb $0x1, %dh                   movl %edi, -0x14(%rbp)            
+mulxl %esi, %ecx, %r8d           movl %esi, -0x18(%rbp)            
+sbbb $0x5, %ch                   movl -0x18(%rbp), %eax            
+shlxl %ecx, %esi, %r10d          notl %eax                         
+cmovnbew %r10w, %di              movl %eax, -0x8(%rbp)             
+setnb %al                        movl -0x14(%rbp), %eax            
+movzwq %r11w, %r9                andl -0x8(%rbp), %eax             
+cmpb %ch, %cl                    movl %eax, -0x4(%rbp)             
+setnle %dh                       movl -0x4(%rbp), %edx             
+rorxl $0x80, %r9d, %eax          movl -0x18(%rbp), %eax            
+shlb $0xfa, %ah                  cmpl %eax, %edx                   
+addl $0x5, %eax                  seta %al                          
+setnp %sil                       movzbl %al, %eax                  
+cmpb $0xfa, %dil                 popq %rbp                         
+shrb $0xe0, %dh                  retq                              
+negl %r8d                                                          
+xchgl %r10d, %r8d                                                  
+setnb %dil                                                         
+lfence                                                             
+setbe %r9b                                                         
+seto %ch                                                           
+setnc %dl                                                          
+subb $0x8, %cl                                                     
+leaq 0x10(%rdx,%rcx,2), %rcx                                       
+cmovnzq %rax, %r8                                                  
+adcw %r9w, %si                                                     
+cmpxchgb %r8b, %dil                                                
+negb %dh                                                           
+retq                                                               
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (4)       Lowest Known Correct Cost (0)     
+                                                                   
+._Z3p11ii:                       ._Z3p11ii:                        
+movq $0x3, %rdx                  pushq %rbp                        
+popcntw %si, %r11w               movq %rsp, %rbp                   
+andb $0x1, %dh                   movl %edi, -0x14(%rbp)            
+mulxl %esi, %ecx, %r8d           movl %esi, -0x18(%rbp)            
+setnc %dil                       movl -0x18(%rbp), %eax            
+shlxl %ecx, %esi, %r10d          notl %eax                         
+notq %r10                        movl %eax, -0x8(%rbp)             
+leaq 0x10(%rdx,%rcx,2), %rcx     movl -0x14(%rbp), %eax            
+movzwq %r11w, %r9                andl -0x8(%rbp), %eax             
+rcrb $0x1, %ch                   movl %eax, -0x4(%rbp)             
+rorxl $0xfb, %r9d, %eax          movl -0x4(%rbp), %edx             
+setle %dh                        movl -0x18(%rbp), %eax            
+shlb $0xff, %ah                  cmpl %eax, %edx                   
+orl $0x5, %eax                   seta %al                          
+cmpb %ch, %cl                    movzbl %al, %eax                  
+xorb $0x5, %ch                   popq %rbp                         
+subb $0xe0, %dh                  retq                              
+negl %r8d                                                          
+seto %dh                                                           
+setnb %dil                                                         
+cltq                                                               
+setle %r9b                                                         
+xchgl %r10d, %r8d                                                  
+subb $0x8, %cl                                                     
+cmpb $0xfa, %dil                                                   
+shll $0x1, %r10d                                                   
+cmovnzq %rax, %r8                                                  
+cmovncw %dx, %si                                                   
+cmpxchgb %r8b, %dil                                                
+negb %ah                                                           
+retq                                                               
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (3)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+emms                           pushq %rbp                        
+sarw $0x3, %di                 movq %rsp, %rbp                   
+subl $0x7, %esi                movl %edi, -0x14(%rbp)            
+movq $0x10, %rdx               movl %esi, -0x18(%rbp)            
+movb $0xc0, %ch                movl -0x18(%rbp), %eax            
+mulxl %edi, %ecx, %r8d         notl %eax                         
+sarw $0x1, %cx                 movl %eax, -0x8(%rbp)             
+rcll $0x1, %edx                movl -0x14(%rbp), %eax            
+popcntq %rcx, %r9              andl -0x8(%rbp), %eax             
+btw $0x2, %si                  movl %eax, -0x4(%rbp)             
+setnb %r10b                    movl -0x4(%rbp), %edx             
+rorxl $0x80, %edx, %eax        movl -0x18(%rbp), %eax            
+rorxl $0xfc, %edi, %r11d       cmpl %eax, %edx                   
+setnbe %dil                    seta %al                          
+cmpw $0xfff8, %r9w             movzbl %al, %eax                  
+adcb %r9b, %dl                 popq %rbp                         
+cmovew %ax, %ax                retq                              
+setng %dh                                                        
+setb %cl                                                         
+cmovlel %edi, %ecx                                               
+sbbl %r9d, %edx                                                  
+bswap %edx                                                       
+mfence                                                           
+sarl $0x1, %esi                                                  
+setnge %cl                                                       
+testl $0xfffffff9, %r9d                                          
+testb $0xf8, %ch                                                 
+xchgb %al, %dil                                                  
+shrb %cl, %al                                                    
+subw $0xff80, %dx                                                
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (2)        Lowest Known Correct Cost (0)     
+                                                                    
+._Z3p11ii:                        ._Z3p11ii:                        
+lzcntl %esi, %edx                 pushq %rbp                        
+incb %sil                         movq %rsp, %rbp                   
+movsbq %dl, %r10                  movl %edi, -0x14(%rbp)            
+movq $0xfffffffffffffffa, %r8     movl %esi, -0x18(%rbp)            
+lzcntq %rdi, %rax                 movl -0x18(%rbp), %eax            
+xorw $0xfffb, %r10w               notl %eax                         
+tzcntl %r8d, %r11d                movl %eax, -0x8(%rbp)             
+adcb %dil, %r8b                   movl -0x14(%rbp), %eax            
+orl %eax, %edx                    andl -0x8(%rbp), %eax             
+setbe %cl                         movl %eax, -0x4(%rbp)             
+cmovbl %edx, %ecx                 movl -0x4(%rbp), %edx             
+cmpxchgl %edi, %edx               movl -0x18(%rbp), %eax            
+setnge %al                        cmpl %eax, %edx                   
+cmovnzw %si, %r8w                 seta %al                          
+rolq $0x80, %rsi                  movzbl %al, %eax                  
+xorb %dh, %dh                     popq %rbp                         
+movl $0x40, %ecx                  retq                              
+cmovgl %edx, %edx                                                   
+sarb $0x1, %dil                                                     
+cmovnleq %rcx, %rsi                                                 
+shrq $0xf9, %rsi                                                    
+rorxl $0x5, %ecx, %r9d                                              
+andq %r10, %r9                                                      
+sarb %cl, %ch                                                       
+rolw %cl, %cx                                                       
+movq $0x1, %r11                                                     
+movzwq %r10w, %r9                                                   
+imull $0x1, %r8d, %ecx                                              
+movl %ecx, %ecx                                                     
+subb $0x6, %r10b                                                    
+retq                                                                
+
+********************************************************************************
+
+Statistics Update: 
+
+Iterations:                    1000000
+Elapsed Time:                  50.3612s
+Iterations/s:                  19856.6
+
+Starting cost:                 9
+Lowest cost:                   2
+Lowest correct cost:           0
+
+Move Type       Proposed     Succeeded     Accepted     
+                                                        
+Add Nops        0%           0%            0%           
+Delete          0%           0%            0%           
+Instruction     24.9507%     12.0894%      7.2282%      
+Opcode          24.9898%     19.8659%      17.9803%     
+OpcodeWidth     0%           0%            0%           
+Operand         25.0998%     20.9542%      19.3216%     
+Local Swap      24.9597%     11.6394%      10.0738%     
+Global Swap     0%           0%            0%           
+Rotate          0%           0%            0%           
+                                                        
+Total           100%         64.5489%      54.6039%     
+
+********************************************************************************
+
+Unable to discover a new correct rewrite before timing out... 
+
+********************************************************************************
+
+Restarting search
+Running search (timeout is 1000000 iterations):
+
+Progress Update: 
+
+Lowest Cost Discovered (8)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+xorl %r9d, %r9d                pushq %rbp                        
+pdepl %esi, %edi, %eax         movq %rsp, %rbp                   
+addl %eax, %esi                movl %edi, -0x14(%rbp)            
+cmovel %esi, %eax              movl %esi, -0x18(%rbp)            
+adcw $0x1, %ax                 movl -0x18(%rbp), %eax            
+tzcntw %r9w, %dx               notl %eax                         
+subw $0xfffc, %r9w             movl %eax, -0x8(%rbp)             
+addb %dh, %ah                  movl -0x14(%rbp), %eax            
+cmovel %eax, %r10d             andl -0x8(%rbp), %eax             
+setna %r8b                     movl %eax, -0x4(%rbp)             
+orw $0xffff, %r9w              movl -0x4(%rbp), %edx             
+setne %ah                      movl -0x18(%rbp), %eax            
+xorw $0x1, %di                 cmpl %eax, %edx                   
+movl $0xffffffe0, %r11d        seta %al                          
+addl $0xfffffffd, %r9d         movzbl %al, %eax                  
+sbbb $0x1, %al                 popq %rbp                         
+sbbl %eax, %eax                retq                              
+andw $0x7, %ax                                                   
+setne %r9b                                                       
+cmovpow %ax, %ax                                                 
+movsbl %r9b, %r11d                                               
+sbbl $0x7, %eax                                                  
+xorw $0xfffd, %ax                                                
+rclb $0x1, %ah                                                   
+salb $0xf0, %dh                                                  
+xorb $0x4, %al                                                   
+setnb %ah                                                        
+andl $0x6, %eax                                                  
+xchgw %ax, %si                                                   
+xchgl %r11d, %eax                                                
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (7)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+movl $0xfffffff0, %r11d        pushq %rbp                        
+movl $0xfffffffd, %eax         movq %rsp, %rbp                   
+shrxq %r11, %r11, %r11         movl %edi, -0x14(%rbp)            
+cltd                           movl %esi, -0x18(%rbp)            
+cmpl $0xffffffe0, %eax         movl -0x18(%rbp), %eax            
+movslq %edi, %rcx              notl %eax                         
+orq $0xffffffc0, %rcx          movl %eax, -0x8(%rbp)             
+movb %cl, %dh                  movl -0x14(%rbp), %eax            
+subb %al, %ah                  andl -0x8(%rbp), %eax             
+negq %rdx                      movl %eax, -0x4(%rbp)             
+rolq $0xfd, %rsi               movl -0x4(%rbp), %edx             
+testw $0xfff0, %ax             movl -0x18(%rbp), %eax            
+movq $0x6, %r9                 cmpl %eax, %edx                   
+roll $0xff, %edi               seta %al                          
+cmovnaw %si, %ax               movzbl %al, %eax                  
+adcw %r11w, %di                popq %rbp                         
+movw $0x8, %r9w                retq                              
+setng %dil                                                       
+setc %dh                                                         
+adcq $0xfffffffe, %rax                                           
+cmovnbel %edi, %r8d                                              
+setb %dil                                                        
+rcrb $0x1, %dh                                                   
+andq $0x4, %rax                                                  
+cmovol %esi, %esi                                                
+subw %ax, %cx                                                    
+shrb $0x1, %dh                                                   
+cmovnaeq %r9, %rdx                                               
+addw $0xff80, %r9w                                               
+sarl %cl, %eax                                                   
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (6)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+lzcntl %esi, %edx              pushq %rbp                        
+movzbl %dil, %ecx              movq %rsp, %rbp                   
+movl $0xffffff80, %eax         movl %edi, -0x14(%rbp)            
+negw %cx                       movl %esi, -0x18(%rbp)            
+idivb %al                      movl -0x18(%rbp), %eax            
+sall %cl, %ecx                 notl %eax                         
+subq $0xfffffff0, %rdx         movl %eax, -0x8(%rbp)             
+setnb %r11b                    movl -0x14(%rbp), %eax            
+movw $0x40, %r11w              andl -0x8(%rbp), %eax             
+setpe %dh                      movl %eax, -0x4(%rbp)             
+setl %r10b                     movl -0x4(%rbp), %edx             
+movswq %cx, %r11               movl -0x18(%rbp), %eax            
+cmovncw %cx, %r9w              cmpl %eax, %edx                   
+movl $0xfffffffe, %r9d         seta %al                          
+sarw $0xc0, %si                movzbl %al, %eax                  
+rclw %cl, %di                  popq %rbp                         
+decb %dil                      retq                              
+orb $0xfa, %ch                                                   
+testb $0x20, %dil                                                
+notb %ch                                                         
+rcrb %cl, %dl                                                    
+rolb $0xf0, %ch                                                  
+xchgw %r9w, %si                                                  
+setna %r8b                                                       
+xchgw %cx, %ax                                                   
+xchgb %r8b, %r9b                                                 
+addb %r11b, %r11b                                                
+btcl %r9d, %r11d                                                 
+bextrq %rdx, %r11, %rax                                          
+cmovnbl %eax, %r9d                                               
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (5)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+movl $0x10, %r8d               pushq %rbp                        
+movsbl %sil, %eax              movq %rsp, %rbp                   
+rorxl $0x10, %r8d, %ecx        movl %edi, -0x14(%rbp)            
+imull %eax                     movl %esi, -0x18(%rbp)            
+btrw %di, %si                  movl -0x18(%rbp), %eax            
+shrb $0x1, %dh                 notl %eax                         
+rorxl $0xf0, %ecx, %r8d        movl %eax, -0x8(%rbp)             
+rorb %cl, %r8b                 movl -0x14(%rbp), %eax            
+negb %ch                       andl -0x8(%rbp), %eax             
+cmoveq %r8, %r11               movl %eax, -0x4(%rbp)             
+btcl %ecx, %eax                movl -0x4(%rbp), %edx             
+sarb $0x1, %r8b                movl -0x18(%rbp), %eax            
+xaddl %edi, %edi               cmpl %eax, %edx                   
+movq $0x80, %r11               seta %al                          
+cmpb $0xf0, %ch                movzbl %al, %eax                  
+movb $0xfc, %dil               popq %rbp                         
+addl $0xfffffff9, %eax         retq                              
+incb %r11b                                                       
+negb %dl                                                         
+btrl $0x1, %esi                                                  
+rclb $0x1, %r11b                                                 
+rclw %cl, %si                                                    
+mulxq %rax, %r9, %r10                                            
+divl %ecx                                                        
+rolb $0x40, %ah                                                  
+sarl $0x1, %esi                                                  
+setge %al                                                        
+movzbl %dil, %edi                                                
+xorw $0x3, %si                                                   
+cmovnzl %r9d, %edx                                               
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (3)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+movq $0x10, %rax               pushq %rbp                        
+imulq %rax                     movq %rsp, %rbp                   
+xorw $0xfffa, %ax              movl %edi, -0x14(%rbp)            
+movl %edi, %r11d               movl %esi, -0x18(%rbp)            
+mulxq %rax, %r10, %r9          movl -0x18(%rbp), %eax            
+adcw $0x8, %ax                 notl %eax                         
+popcntl %eax, %ecx             movl %eax, -0x8(%rbp)             
+rorw $0x1, %ax                 movl -0x14(%rbp), %eax            
+adcl %ecx, %ecx                andl -0x8(%rbp), %eax             
+andb $0x40, %al                movl %eax, -0x4(%rbp)             
+xchgw %cx, %ax                 movl -0x4(%rbp), %edx             
+cmpw %dx, %cx                  movl -0x18(%rbp), %eax            
+setnle %cl                     cmpl %eax, %edx                   
+xaddb %dl, %r9b                seta %al                          
+cmovnlw %ax, %r10w             movzbl %al, %eax                  
+blsil %edx, %edx               popq %rbp                         
+cmovnlel %r9d, %r9d            retq                              
+setnbe %sil                                                      
+cmpb $0xc0, %al                                                  
+sete %ch                                                         
+adcl $0x6, %esi                                                  
+cmovsw %dx, %dx                                                  
+rolb $0x1, %ah                                                   
+setge %r10b                                                      
+cmpq %r11, %rax                                                  
+shrb $0x10, %sil                                                 
+subb $0xfd, %dh                                                  
+cmovnsw %r10w, %ax                                               
+adcl $0xfffffff9, %edi                                           
+cmovgeq %r9, %rax                                                
+retq                                                             
+
+********************************************************************************
+
+Statistics Update: 
+
+Iterations:                    1000000
+Elapsed Time:                  49.9313s
+Iterations/s:                  20027.5
+
+Starting cost:                 9
+Lowest cost:                   3
+Lowest correct cost:           0
+
+Move Type       Proposed     Succeeded     Accepted     
+                                                        
+Add Nops        0%           0%            0%           
+Delete          0%           0%            0%           
+Instruction     25.035%      12.138%       7.2456%      
+Opcode          24.9646%     19.8309%      17.9491%     
+OpcodeWidth     0%           0%            0%           
+Operand         25.027%      20.8419%      19.2001%     
+Local Swap      24.9734%     11.5618%      9.9262%      
+Global Swap     0%           0%            0%           
+Rotate          0%           0%            0%           
+                                                        
+Total           100%         64.3726%      54.321%      
+
+********************************************************************************
+
+Unable to discover a new correct rewrite before timing out... 
+
+********************************************************************************
+
+Restarting search
+Running search (timeout is 1000000 iterations):
+
+Progress Update: 
+
+Lowest Cost Discovered (8)         Lowest Known Correct Cost (0)     
+                                                                     
+._Z3p11ii:                         ._Z3p11ii:                        
+xorq %rax, %rax                    pushq %rbp                        
+movl $0x20, %r8d                   movq %rsp, %rbp                   
+movl $0x7, %edx                    movl %edi, -0x14(%rbp)            
+rcll $0xf8, %eax                   movl %esi, -0x18(%rbp)            
+xorq %r9, %r9                      movl -0x18(%rbp), %eax            
+cmovnow %dx, %ax                   notl %eax                         
+movslq %esi, %r10                  movl %eax, -0x8(%rbp)             
+andl %eax, %r10d                   movl -0x14(%rbp), %eax            
+andl $0x2, %edi                    andl -0x8(%rbp), %eax             
+setnbe %cl                         movl %eax, -0x4(%rbp)             
+orb $0xfe, %r8b                    movl -0x4(%rbp), %edx             
+bzhiq %rdi, %r10, %rax             movl -0x18(%rbp), %eax            
+rorl %cl, %esi                     cmpl %eax, %edx                   
+andw $0x8, %r8w                    seta %al                          
+bzhil %eax, %edi, %esi             movzbl %al, %eax                  
+cmpb %sil, %r9b                    popq %rbp                         
+cmovnpq %rdx, %r11                 retq                              
+setae %dh                                                            
+movzwl %ax, %ecx                                                     
+rolb $0x10, %ch                                                      
+mfence                                                               
+movb $0xe0, %ch                                                      
+cmovael %r9d, %r9d                                                   
+rorxq $0x5, %r9, %rdx                                                
+sarb $0x1, %al                                                       
+popcntq %r10, %rdx                                                   
+setl %cl                                                             
+cmpw $0x6, %ax                                                       
+movq $0xfffffffffffffffb, %rdi                                       
+retq                                                                 
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (7)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+xorq %rdx, %rdx                pushq %rbp                        
+cmovnbq %rsi, %rcx             movq %rsp, %rbp                   
+cmovnzq %rdx, %rcx             movl %edi, -0x14(%rbp)            
+movq %rsi, %rax                movl %esi, -0x18(%rbp)            
+tzcntl %edx, %r8d              movl -0x18(%rbp), %eax            
+addb %r8b, %r8b                notl %eax                         
+movzwl %dx, %ecx               movl %eax, -0x8(%rbp)             
+pextl %esi, %r8d, %r11d        movl -0x14(%rbp), %eax            
+sarxq %rax, %r11, %r10         andl -0x8(%rbp), %eax             
+andb %ah, %ah                  movl %eax, -0x4(%rbp)             
+cmpxchgq %r11, %rax            movl -0x4(%rbp), %edx             
+andl %ecx, %r11d               movl -0x18(%rbp), %eax            
+rcll $0x4, %r8d                cmpl %eax, %edx                   
+shrxl %esi, %r11d, %r8d        seta %al                          
+subl $0xfffffff8, %eax         movzbl %al, %eax                  
+imull %esi                     popq %rbp                         
+xorb %r10b, %dl                retq                              
+subw $0x8, %r11w                                                 
+bextrq %r10, %r10, %r11                                          
+cmovbel %r8d, %r9d                                               
+cmpw %si, %dx                                                    
+cmovbew %di, %r10w                                               
+cmovnsl %edx, %r9d                                               
+pextl %edx, %r10d, %esi                                          
+xorw $0xfffe, %di                                                
+cmovnpw %r10w, %r10w                                             
+bswap %edx                                                       
+setl %ch                                                         
+negw %r8w                                                        
+pextq %rsi, %rdi, %rax                                           
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (5)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+xorq %rdx, %rdx                pushq %rbp                        
+movswq %si, %r10               movq %rsp, %rbp                   
+andl $0xffffffc0, %esi         movl %edi, -0x14(%rbp)            
+mulxq %rsi, %rax, %rcx         movl %esi, -0x18(%rbp)            
+setnl %cl                      movl -0x18(%rbp), %eax            
+xchgq %rax, %rcx               notl %eax                         
+btrw %dx, %si                  movl %eax, -0x8(%rbp)             
+leaq -0x6(,%rcx,4), %r8        movl -0x14(%rbp), %eax            
+rcrb %cl, %ah                  andl -0x8(%rbp), %eax             
+cmpb %dh, %dh                  movl %eax, -0x4(%rbp)             
+cmovnsw %dx, %si               movl -0x4(%rbp), %edx             
+testq %r8, %r10                movl -0x18(%rbp), %eax            
+addb %al, %cl                  cmpl %eax, %edx                   
+xorb %dil, %cl                 seta %al                          
+movsbq %r10b, %r11             movzbl %al, %eax                  
+movzbw %dl, %r11w              popq %rbp                         
+cmovnbw %cx, %r8w              retq                              
+cmovow %r10w, %r9w                                               
+xchgl %r11d, %ecx                                                
+rorw $0xfb, %r11w                                                
+cmovnzl %esi, %ecx                                               
+rcrb %cl, %sil                                                   
+xorl %eax, %edx                                                  
+bzhil %r8d, %eax, %eax                                           
+cmovnaew %di, %r11w                                              
+salq $0x1, %rsi                                                  
+movsbw %cl, %r9w                                                 
+bsrw %cx, %r8w                                                   
+andb %cl, %r10b                                                  
+btrw %ax, %si                                                    
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (4)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+xorq %rdx, %rdx                pushq %rbp                        
+movswq %si, %r10               movq %rsp, %rbp                   
+andl $0xffffffc0, %esi         movl %edi, -0x14(%rbp)            
+mulxq %rsi, %rax, %rcx         movl %esi, -0x18(%rbp)            
+setnl %cl                      movl -0x18(%rbp), %eax            
+xchgq %rax, %rcx               notl %eax                         
+btrw %di, %si                  movl %eax, -0x8(%rbp)             
+leaq -0x6(,%rcx,4), %r8        movl -0x14(%rbp), %eax            
+testq %r8, %r10                andl -0x8(%rbp), %eax             
+shrxl %r10d, %edx, %r10d       movl %eax, -0x4(%rbp)             
+addw %cx, %si                  movl -0x4(%rbp), %edx             
+rcrb %cl, %ah                  movl -0x18(%rbp), %eax            
+addb %al, %dil                 cmpl %eax, %edx                   
+cmpb %dil, %cl                 seta %al                          
+movsbq %r10b, %r11             movzbl %al, %eax                  
+cmovngw %r10w, %ax             popq %rbp                         
+cmovnbw %cx, %r8w              retq                              
+movzbw %dl, %dx                                                  
+cmovnol %r11d, %ecx                                              
+rorw $0xfb, %r11w                                                
+cmovbeq %rdx, %r8                                                
+rcrb %cl, %r11b                                                  
+xorl %eax, %edx                                                  
+movzbw %cl, %di                                                  
+cmovnaew %di, %r11w                                              
+sarq $0x1, %rsi                                                  
+addb %dh, %dh                                                    
+bzhil %r8d, %eax, %eax                                           
+bsrw %cx, %r8w                                                   
+btrw %ax, %si                                                    
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (3)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+xorq %rdx, %rdx                pushq %rbp                        
+movswq %si, %r10               movq %rsp, %rbp                   
+andl $0xffffff80, %esi         movl %edi, -0x14(%rbp)            
+mulxq %rsi, %rax, %rcx         movl %esi, -0x18(%rbp)            
+setnl %cl                      movl -0x18(%rbp), %eax            
+xchgq %rax, %rcx               notl %eax                         
+rorw $0xfb, %r10w              movl %eax, -0x8(%rbp)             
+leaq -0x6(,%rcx,4), %r8        movl -0x14(%rbp), %eax            
+testq %r8, %r10                andl -0x8(%rbp), %eax             
+adcb %al, %dil                 movl %eax, -0x4(%rbp)             
+subl $0x8, %edi                movl -0x4(%rbp), %edx             
+rcrb %cl, %ah                  movl -0x18(%rbp), %eax            
+shrxl %r10d, %eax, %r10d       cmpl %eax, %edx                   
+cmpb %dil, %cl                 seta %al                          
+movzbq %r10b, %r11             movzbl %al, %eax                  
+cmovngw %r10w, %ax             popq %rbp                         
+cmovnbw %cx, %r8w              retq                              
+cmovol %esi, %edi                                                
+tzcntl %edi, %r10d                                               
+btrw %cx, %si                                                    
+cmovbeq %rdi, %r8                                                
+movb %dil, %r11b                                                 
+orb $0x4, %cl                                                    
+movzbw %cl, %di                                                  
+cmovnaew %cx, %r10w                                              
+movzbw %dl, %dx                                                  
+rcrb %cl, %cl                                                    
+bextrq %r10, %rdx, %r10                                          
+cmovnbw %si, %di                                                 
+cmpw %di, %r8w                                                   
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (2)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+bzhil %esi, %esi, %ecx         pushq %rbp                        
+setns %r11b                    movq %rsp, %rbp                   
+sbbl $0xffffffc0, %edi         movl %edi, -0x14(%rbp)            
+movzwq %cx, %r8                movl %esi, -0x18(%rbp)            
+movl %r8d, %edi                movl -0x18(%rbp), %eax            
+tzcntq %rcx, %r10              notl %eax                         
+movq $0x1, %rdx                movl %eax, -0x8(%rbp)             
+movw $0x1, %di                 movl -0x14(%rbp), %eax            
+xorl %ecx, %r8d                andl -0x8(%rbp), %eax             
+setpo %dh                      movl %eax, -0x4(%rbp)             
+setnae %ah                     movl -0x4(%rbp), %edx             
+andnq %rsi, %rdi, %rcx         movl -0x18(%rbp), %eax            
+movzbl %ah, %eax               cmpl %eax, %edx                   
+rolq %cl, %rsi                 seta %al                          
+shrl $0x20, %eax               movzbl %al, %eax                  
+imulq %r8, %r10                popq %rbp                         
+shrq $0x2, %rax                retq                              
+movzbq %r11b, %r8                                                
+bzhiq %rcx, %rcx, %rcx                                           
+subw %r8w, %r10w                                                 
+rcrl $0x1, %r8d                                                  
+movswl %r8w, %ecx                                                
+btsq $0xfa, %rsi                                                 
+rclq %cl, %r10                                                   
+seta %al                                                         
+lzcntw %r8w, %di                                                 
+andb $0x1, %ch                                                   
+notw %r10w                                                       
+addw $0x40, %dx                                                  
+rorxq $0xf8, %rcx, %rdx                                          
+retq                                                             
+
+********************************************************************************
+
+Statistics Update: 
+
+Iterations:                    1000000
+Elapsed Time:                  50.059s
+Iterations/s:                  19976.4
+
+Starting cost:                 9
+Lowest cost:                   2
+Lowest correct cost:           0
+
+Move Type       Proposed     Succeeded     Accepted     
+                                                        
+Add Nops        0%           0%            0%           
+Delete          0%           0%            0%           
+Instruction     25.0421%     12.2208%      7.3269%      
+Opcode          24.8968%     19.7277%      17.8258%     
+OpcodeWidth     0%           0%            0%           
+Operand         25.0328%     20.8506%      19.1357%     
+Local Swap      25.0283%     11.7886%      10.0594%     
+Global Swap     0%           0%            0%           
+Rotate          0%           0%            0%           
+                                                        
+Total           100%         64.5877%      54.3478%     
+
+********************************************************************************
+
+Unable to discover a new correct rewrite before timing out... 
+
+********************************************************************************
+
+Restarting search
+Running search (timeout is 1000000 iterations):
+
+Progress Update: 
+
+Lowest Cost Discovered (8)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+leal 0x4(,%esi,4), %eax        pushq %rbp                        
+cmpq $0x40, %rax               movq %rsp, %rbp                   
+setna %dh                      movl %edi, -0x14(%rbp)            
+imulq %rax                     movl %esi, -0x18(%rbp)            
+bextrq %rdx, %rax, %r9         movl -0x18(%rbp), %eax            
+sete %ch                       notl %eax                         
+adcb $0xfd, %dh                movl %eax, -0x8(%rbp)             
+mulxq %rax, %r10, %rcx         movl -0x14(%rbp), %eax            
+setns %al                      andl -0x8(%rbp), %eax             
+movb %sil, %dl                 movl %eax, -0x4(%rbp)             
+subl $0x7, %edx                movl -0x4(%rbp), %edx             
+adcb $0xfe, %al                movl -0x18(%rbp), %eax            
+sall $0x1, %r9d                cmpl %eax, %edx                   
+movw $0xfff9, %si              seta %al                          
+decq %r10                      movzbl %al, %eax                  
+cmpl %r9d, %r9d                popq %rbp                         
+crc32b %ah, %edi               retq                              
+movzbl %dl, %r8d                                                 
+btsw %cx, %cx                                                    
+orq $0xfffffffd, %rax                                            
+cmpb %ch, %dl                                                    
+movq %rax, %rdx                                                  
+shlq $0x3, %rsi                                                  
+shrw %cl, %r8w                                                   
+sarxq %r8, %rax, %r11                                            
+cmpb %al, %r8b                                                   
+cmovpw %r9w, %r8w                                                
+adcq %r8, %rax                                                   
+orw %r8w, %r8w                                                   
+setl %r10b                                                       
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (7)        Lowest Known Correct Cost (0)     
+                                                                    
+._Z3p11ii:                        ._Z3p11ii:                        
+movzbl %sil, %r10d                pushq %rbp                        
+movq $0xffffffffffffff80, %r9     movq %rsp, %rbp                   
+leal -0x7(%r9,%r9,2), %eax        movl %edi, -0x14(%rbp)            
+mull %edi                         movl %esi, -0x18(%rbp)            
+cmovcw %r10w, %dx                 movl -0x18(%rbp), %eax            
+imulq $0x6, %rdx, %rcx            notl %eax                         
+subb $0xfe, %sil                  movl %eax, -0x8(%rbp)             
+cmovbew %si, %r9w                 movl -0x14(%rbp), %eax            
+xorb %cl, %ah                     andl -0x8(%rbp), %eax             
+cmovlw %dx, %r8w                  movl %eax, -0x4(%rbp)             
+movswq %r10w, %r8                 movl -0x4(%rbp), %edx             
+negw %cx                          movl -0x18(%rbp), %eax            
+cmovew %cx, %di                   cmpl %eax, %edx                   
+cmpl $0x40, %eax                  seta %al                          
+lzcntl %esi, %edi                 movzbl %al, %eax                  
+setnc %cl                         popq %rbp                         
+movb %al, %ah                     retq                              
+imulw %r9w, %si                                                     
+movq $0x0, %r9                                                      
+btw $0x40, %di                                                      
+rclb %cl, %r9b                                                      
+blsil %ecx, %eax                                                    
+cmovbq %r9, %rax                                                    
+cmpb %dil, %r8b                                                     
+andb $0xf9, %al                                                     
+rorq $0x1, %rdi                                                     
+testb %dl, %ch                                                      
+shrb $0x1, %ch                                                      
+setbe %dil                                                          
+lfence                                                              
+retq                                                                
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (5)        Lowest Known Correct Cost (0)     
+                                                                    
+._Z3p11ii:                        ._Z3p11ii:                        
+sarl $0xfd, %esi                  pushq %rbp                        
+btrl %edi, %esi                   movq %rsp, %rbp                   
+movsbl %sil, %edx                 movl %edi, -0x14(%rbp)            
+adcb %dh, %dh                     movl %esi, -0x18(%rbp)            
+movswq %dx, %rcx                  movl -0x18(%rbp), %eax            
+imulq $0xfffffff0, %rdx, %rax     notl %eax                         
+testl $0x8, %eax                  movl %eax, -0x8(%rbp)             
+setnz %ah                         movl -0x14(%rbp), %eax            
+sbbw $0x5, %ax                    andl -0x8(%rbp), %eax             
+sarxl %edx, %ecx, %r9d            movl %eax, -0x4(%rbp)             
+setnb %dl                         movl -0x4(%rbp), %edx             
+notl %r9d                         movl -0x18(%rbp), %eax            
+bextrq %r9, %rdx, %r11            cmpl %eax, %edx                   
+adcw %r9w, %r11w                  seta %al                          
+shrxl %ecx, %eax, %edx            movzbl %al, %eax                  
+rcrq %cl, %rax                    popq %rbp                         
+shrq $0xf8, %r9                   retq                              
+cmovnel %esi, %esi                                                  
+testb %ah, %ah                                                      
+salw $0x1, %cx                                                      
+decw %cx                                                            
+blsil %r11d, %eax                                                   
+movb %ch, %ch                                                       
+andw %si, %di                                                       
+xchgb %ch, %dl                                                      
+decw %cx                                                            
+movl %r9d, %r9d                                                     
+crc32b %al, %r11                                                    
+btrl %eax, %esi                                                     
+adcb $0xfd, %cl                                                     
+retq                                                                
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (4)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+sarl $0xfd, %esi               pushq %rbp                        
+movzbl %sil, %edx              movq %rsp, %rbp                   
+imulq $0x3, %rdx, %rax         movl %edi, -0x14(%rbp)            
+subb %dh, %ah                  movl %esi, -0x18(%rbp)            
+sarxl %eax, %esi, %r9d         movl -0x18(%rbp), %eax            
+cmovll %edx, %esi              notl %eax                         
+movswq %di, %rcx               movl %eax, -0x8(%rbp)             
+subl $0xfffffffe, %eax         movl -0x14(%rbp), %eax            
+cmpxchgb %dh, %ah              andl -0x8(%rbp), %eax             
+andb $0xf8, %al                movl %eax, -0x4(%rbp)             
+imulb %dl                      movl -0x4(%rbp), %edx             
+cmpxchgb %dil, %dl             movl -0x18(%rbp), %eax            
+mulxq %r9, %rax, %r11          cmpl %eax, %edx                   
+rorw %cl, %di                  seta %al                          
+notl %r9d                      movzbl %al, %eax                  
+cmovbew %cx, %dx               popq %rbp                         
+roll $0x3, %esi                retq                              
+cmovaw %dx, %r8w                                                 
+cmovcq %r9, %rax                                                 
+cmovpw %r9w, %r11w                                               
+orb $0xff, %cl                                                   
+cmovnbq %r9, %r9                                                 
+mulw %dx                                                         
+cmovnbl %eax, %r8d                                               
+adcw %r9w, %cx                                                   
+sbbb %r9b, %cl                                                   
+movb %dh, %dh                                                    
+blsil %r11d, %eax                                                
+bextrq %rdx, %rdx, %r9                                           
+sbbl $0xfffffffc, %ecx                                           
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (3)        Lowest Known Correct Cost (0)     
+                                                                    
+._Z3p11ii:                        ._Z3p11ii:                        
+sarl $0xfe, %esi                  pushq %rbp                        
+movsbl %sil, %edx                 movq %rsp, %rbp                   
+imulq $0xfffffffd, %rdx, %rax     movl %edi, -0x14(%rbp)            
+adcb %dh, %ah                     movl %esi, -0x18(%rbp)            
+sarxl %esi, %esi, %r9d            movl -0x18(%rbp), %eax            
+mulxq %r9, %rax, %r11             notl %eax                         
+movswq %di, %rcx                  movl %eax, -0x8(%rbp)             
+setns %ah                         movl -0x14(%rbp), %eax            
+xchgw %dx, %dx                    andl -0x8(%rbp), %eax             
+sbbw %r11w, %di                   movl %eax, -0x4(%rbp)             
+imulb %r9b                        movl -0x4(%rbp), %edx             
+subb %r11b, %dl                   movl -0x18(%rbp), %eax            
+cmovll %esi, %esi                 cmpl %eax, %edx                   
+rcrw %cl, %di                     seta %al                          
+cmovcq %rdx, %rax                 movzbl %al, %eax                  
+orb %ah, %al                      popq %rbp                         
+cmovnzq %rcx, %rsi                retq                              
+movb %r11b, %r11b                                                   
+notl %r9d                                                           
+cmovpw %r9w, %r11w                                                  
+orb $0xff, %cl                                                      
+cmovcq %r11, %rdi                                                   
+cmovngq %r9, %rcx                                                   
+adcw %r9w, %cx                                                      
+cmovncw %r11w, %r9w                                                 
+btl %esi, %edx                                                      
+orb %ah, %ch                                                        
+orl $0x40, %edx                                                     
+bextrq %rcx, %rdx, %r9                                              
+blsil %r11d, %eax                                                   
+retq                                                                
+
+********************************************************************************
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (0)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+lzcntl %edi, %edx              lzcntl %edi, %edx                 
+lzcntl %esi, %eax              lzcntl %esi, %eax                 
+salb $0x1, %dh                 salb $0x1, %dh                    
+sete %r11b                     sete %r11b                        
+setnb %dh                      setnb %dh                         
+shrxq %rdx, %rax, %rdx         shrxq %rdx, %rax, %rdx            
+rclb $0x1, %al                 rclb $0x1, %al                    
+verw %si                       verw %si                          
+mulxl %edx, %ecx, %r11d        mulxl %edx, %ecx, %r11d           
+andb $0xfd, %al                andb $0xfd, %al                   
+tzcntq %rcx, %r9               tzcntq %rcx, %r9                  
+cmovcw %ax, %r10w              cmovcw %ax, %r10w                 
+rclq %cl, %rsi                 rclq %cl, %rsi                    
+orb %dil, %sil                 orb %dil, %sil                    
+shrl $0x1, %esi                shrl $0x1, %esi                   
+shlq $0xf0, %rdi               shlq $0xf0, %rdi                  
+blsiq %rdx, %rcx               blsiq %rdx, %rcx                  
+setnle %al                     setnle %al                        
+setnl %dh                      setnl %dh                         
+orq $0xffffffc0, %rcx          orq $0xffffffc0, %rcx             
+cmpl $0x7, %edx                cmpl $0x7, %edx                   
+andl %eax, %eax                andl %eax, %eax                   
+subb %sil, %cl                 subb %sil, %cl                    
+shrq $0xf8, %rcx               shrq $0xf8, %rcx                  
+andb %dh, %ah                  andb %dh, %ah                     
+subq $0x5, %rsi                subq $0x5, %rsi                   
+rorxl $0xfd, %esi, %edi        rorxl $0xfd, %esi, %edi           
+xaddb %r11b, %al               xaddb %r11b, %al                  
+salq $0x7, %rdx                salq $0x7, %rdx                   
+sarb %cl, %ch                  sarb %cl, %ch                     
+retq                           retq                              
+
+********************************************************************************
+
+Unable to verify new rewrite...
+
+********************************************************************************
+
+Restarting search using new testcase (counterexample from verifier):
+
+SIGNAL 0 [normal exit]
+
+%rax     af 0e f9 68 ec 49 86 6a
+%rcx     0e db 76 7f 36 86 9c b4
+%rdx     24 09 22 c8 46 3e 32 1f
+%rbx     36 0b 42 47 6e bb 4a 2d
+%rsp     00 00 00 07 00 00 00 00
+%rbp     24 70 fc e0 42 e3 91 68
+%rsi     58 ea db c3 14 1e b7 9f
+%rdi     6a 54 ff 6c 25 1f 63 62
+%r8      bf 0d de 75 2e 97 eb a3
+%r9      38 67 81 a0 df 48 e4 23
+%r10     db 1d fc 24 74 35 2f 0b
+%r11     ba ab 62 19 df bc e8 c9
+%r12     7d ef f3 a0 3e 7b 67 0f
+%r13     d5 bd 68 82 87 a3 18 ad
+%r14     63 94 24 01 74 2c af da
+%r15     81 ab 63 aa 5d 00 d4 61
+
+%ymm0    a0 1f 20 e1 9c 9f 0e 87 a1 95 68 2c e4 c0 b0 75 48 52 80 48 59 4b e2 18 ce a4 fe 5b 70 eb 22 de
+%ymm1    e7 c9 d4 7a 4d d2 8d 43 5a 63 21 ca 1f 4b 53 b7 82 fe 58 bb 5f cd c7 6c 9f 05 2e 56 2b 8c b0 d0
+%ymm2    0e 3f 40 91 59 1e dd 8b 3e 16 f3 2a 94 49 67 01 ed 9b 23 f7 ec b9 32 d1 75 37 8c 78 d6 81 4f d6
+%ymm3    60 37 aa 5e 43 30 b4 f3 35 46 12 5b 33 69 4c 59 c3 42 5f ba f5 e1 bb ca b8 15 34 8b 59 6d 93 8e
+%ymm4    bf 3a 8c f0 89 24 54 c1 9d bd 7b 13 d5 0e ac 90 2c c7 3f 6f aa c4 e1 c9 17 d4 d1 b6 63 14 99 06
+%ymm5    58 6e 5a 3c 7b 65 14 bf b9 5f fd f4 61 52 f4 5b e5 6b 5b 43 f3 1e eb 45 f8 be 19 54 8c f9 fa 22
+%ymm6    1e 71 61 90 51 73 ca b9 5c 9e be 94 b6 44 c9 02 ca 5a bd a4 46 44 b8 60 e3 86 a5 f6 8a 91 84 4c
+%ymm7    93 57 ce 84 e8 30 f5 07 13 a3 cb 17 cb 35 47 43 7f 31 77 00 93 50 65 8d 37 5d 05 07 ec 82 b6 5a
+%ymm8    14 4d b0 43 ec 74 95 e9 cc 60 27 e2 ba d8 22 db fc 16 26 0c 17 76 ed e5 2d 65 4b c9 3c 05 37 b9
+%ymm9    c6 93 82 11 c3 46 36 30 4c 07 a9 a0 09 44 0c a7 bc dd 83 f4 9e 58 a3 ee 1b 5b 02 d4 32 ba 46 65
+%ymm10   8a b1 06 34 94 f7 94 49 62 ca d4 e7 f9 56 49 6c 93 c1 57 21 4c ff 3d fd 1c bb 46 3c 76 5d 06 42
+%ymm11   4b 53 45 ba 93 d7 92 1c 0b aa c2 ab 86 86 fc 39 bd 60 f8 0c af 59 5c 2e 97 5a c2 10 3c d2 63 9d
+%ymm12   01 8f d6 52 8c e8 76 bf ed c0 6a 82 cb 7d ff 1f f0 98 49 4a d1 c2 a1 a2 61 29 18 fc 65 14 b5 33
+%ymm13   0c 92 1a ec e0 ea 32 8a 7f be 9a 2c 7a bd 8d 2e 46 9d 51 fa 86 b0 fa 4f c7 10 25 13 63 c3 e9 91
+%ymm14   fe a4 d1 c0 6a aa 56 76 59 c9 5d 95 27 3c 28 b8 95 68 f4 17 8b a9 aa 70 d8 ca d7 09 86 d9 84 d6
+%ymm15   f6 53 c9 c0 d8 08 be 73 4b a0 c3 05 66 94 c9 2d 02 58 66 1c 8a 11 32 39 81 a3 5c 72 4d 0a b2 22
+
+%cf      1 
+%1       1 
+%pf      0 
+%0       0 
+%af      1 
+%0       0 
+%zf      1 
+%sf      0 
+%tf      0 
+%if      1 
+%df      0 
+%of      1 
+%iopl[0] 0 
+%iopl[1] 0 
+%nt      0 
+%0       0 
+%rf      0 
+%vm      0 
+%ac      0 
+%vif     0 
+%vip     0 
+%id      0 
+
+[ 00000007 00000000 - 00000006 ffffffe0 ]
+[ 4 valid rows shown ]
+
+00000006 fffffff8   v v v v v v v v   12 b1 80 71 ba 6c 35 c5 
+00000006 fffffff0   v v v v v v v v   c7 e5 11 9c c0 6b d7 b8 
+00000006 ffffffe8   v v v v v v v v   67 a8 c0 3e e9 cd 51 8e 
+00000006 ffffffe0   v v v v v v v v   92 13 bc ef b8 a2 3d 83 
+
+[ 00000001 00000000 - 00000001 00000000 ]
+[ 0 valid rows shown ]
+
+[ 00000000 00000000 - 00000000 00000000 ]
+[ 0 valid rows shown ]
+
+0 more segment(s)
+
+
+Running search (timeout is 1000000 iterations):
+
+Progress Update: 
+
+Lowest Cost Discovered (5)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+movl $0x0, %ecx                pushq %rbp                        
+orl $0xfffffffa, %ecx          movq %rsp, %rbp                   
+xorq %rax, %rax                movl %edi, -0x14(%rbp)            
+popcntl %ecx, %r8d             movl %esi, -0x18(%rbp)            
+sall $0x6, %r8d                movl -0x18(%rbp), %eax            
+cmpb %ah, %cl                  notl %eax                         
+movw %ax, %r10w                movl %eax, -0x8(%rbp)             
+cmovpew %ax, %dx               movl -0x14(%rbp), %eax            
+sall %cl, %r8d                 andl -0x8(%rbp), %eax             
+mulq %r8                       movl %eax, -0x4(%rbp)             
+cmovcw %dx, %si                movl -0x4(%rbp), %edx             
+bextrq %rcx, %rdx, %r10        movl -0x18(%rbp), %eax            
+rolb %cl, %r8b                 cmpl %eax, %edx                   
+rorb %cl, %dh                  seta %al                          
+cmovbeq %rcx, %r11             movzbl %al, %eax                  
+btsw $0xf9, %di                popq %rbp                         
+sbbb %cl, %cl                  retq                              
+incl %edi                                                        
+sarl $0x80, %edi                                                 
+lzcntw %si, %di                                                  
+cmpl $0xfffffffd, %esi                                           
+clc                                                              
+cmovpoq %rdi, %rdi                                               
+setnz %r11b                                                      
+setg %al                                                         
+shrl $0x1, %r10d                                                 
+testb $0xf9, %dh                                                 
+adcl %edx, %esi                                                  
+subq $0x1, %rcx                                                  
+shlxl %r8d, %edx, %r10d                                          
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (4)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+movq $0x1, %r8                 pushq %rbp                        
+leal -0x40(,%r8,4), %r9d       movq %rsp, %rbp                   
+cmpl $0xffffffc0, %edi         movl %edi, -0x14(%rbp)            
+setg %ah                       movl %esi, -0x18(%rbp)            
+setnbe %dh                     movl -0x18(%rbp), %eax            
+movb $0xf0, %dl                notl %eax                         
+pextl %r9d, %esi, %r10d        movl %eax, -0x8(%rbp)             
+cmovngeq %r8, %rax             movl -0x14(%rbp), %eax            
+cmovlew %si, %dx               andl -0x8(%rbp), %eax             
+rclb $0x6, %dh                 movl %eax, -0x4(%rbp)             
+addq $0x20, %r10               movl -0x4(%rbp), %edx             
+cmovnaew %r9w, %ax             movl -0x18(%rbp), %eax            
+setnl %ch                      cmpl %eax, %edx                   
+setnbe %ch                     seta %al                          
+adcb %dl, %dil                 movzbl %al, %eax                  
+cmovpl %r8d, %r11d             popq %rbp                         
+btsl %r10d, %esi               retq                              
+salb $0x1, %r10b                                                 
+subb $0x0, %dil                                                  
+sete %ch                                                         
+orl %esi, %edi                                                   
+cmovbeq %rsi, %rsi                                               
+notb %ah                                                         
+xorl $0x3, %esi                                                  
+btrw %dx, %r9w                                                   
+movq %r8, %rax                                                   
+addb %ch, %dl                                                    
+cmpl $0x10, %esi                                                 
+setge %al                                                        
+cmpb %dh, %dh                                                    
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (3)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+lzcntl %esi, %eax              pushq %rbp                        
+setnb %dh                      movq %rsp, %rbp                   
+imulq %rdi                     movl %edi, -0x14(%rbp)            
+mulxq %rdx, %r11, %r10         movl %esi, -0x18(%rbp)            
+testb $0xf0, %ah               movl -0x18(%rbp), %eax            
+bextrl %edx, %r10d, %r8d       notl %eax                         
+cmovbl %r11d, %r9d             movl %eax, -0x8(%rbp)             
+negw %r11w                     movl -0x14(%rbp), %eax            
+setb %r10b                     andl -0x8(%rbp), %eax             
+movb $0x6, %ah                 movl %eax, -0x4(%rbp)             
+addb %r10b, %al                movl -0x4(%rbp), %edx             
+incb %r11b                     movl -0x18(%rbp), %eax            
+negb %dh                       cmpl %eax, %edx                   
+crc32q %rsi, %rdi              seta %al                          
+cmpb $0xfd, %dil               movzbl %al, %eax                  
+setb %ch                       popq %rbp                         
+sarl $0x1, %edx                retq                              
+setnge %dil                                                      
+rclb $0x1, %al                                                   
+andw $0xfffe, %ax                                                
+bzhil %edi, %r11d, %ecx                                          
+shrl $0x1, %ecx                                                  
+cmovnzw %ax, %si                                                 
+rorb $0x1, %ch                                                   
+cmpb %ah, %al                                                    
+movw %dx, %cx                                                    
+cmpl %edx, %eax                                                  
+cmovnsw %r8w, %ax                                                
+shlb $0x1, %al                                                   
+movsbq %r10b, %rax                                               
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (1)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+btsq $0xfe, %rdi               pushq %rbp                        
+lzcntl %esi, %eax              movq %rsp, %rbp                   
+imulq %rdi                     movl %edi, -0x14(%rbp)            
+mulxq %rdx, %r11, %r10         movl %esi, -0x18(%rbp)            
+cmpw %si, %dx                  movl -0x18(%rbp), %eax            
+cwtl                           notl %eax                         
+subb $0x40, %ah                movl %eax, -0x8(%rbp)             
+setle %r9b                     movl -0x14(%rbp), %eax            
+andnl %eax, %edi, %ecx         andl -0x8(%rbp), %eax             
+xaddl %edx, %ecx               movl %eax, -0x4(%rbp)             
+setns %r10b                    movl -0x4(%rbp), %edx             
+addq $0xfffffffb, %rsi         movl -0x18(%rbp), %eax            
+setz %al                       cmpl %eax, %edx                   
+imulw %r11w, %r10w             seta %al                          
+subl %eax, %edi                movzbl %al, %eax                  
+notb %ch                       popq %rbp                         
+setng %ch                      retq                              
+testb $0xe0, %dil                                                
+rcrq $0x1, %rcx                                                  
+movsbq %r10b, %rax                                               
+xorb %dil, %cl                                                   
+sbbb $0xf9, %ch                                                  
+setl %r10b                                                       
+setz %dil                                                        
+rcrl $0x1, %edi                                                  
+cmovzq %rcx, %rsi                                                
+rcrb %cl, %dh                                                    
+decb %dl                                                         
+cmovgew %r11w, %dx                                               
+bextrl %edi, %esi, %esi                                          
+retq                                                             
+
+********************************************************************************
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (0)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+btsq $0xfe, %rdi               btsq $0xfe, %rdi                  
+lzcntl %esi, %eax              lzcntl %esi, %eax                 
+imulq %rdi                     imulq %rdi                        
+mulxq %rdx, %r11, %r10         mulxq %rdx, %r11, %r10            
+setnc %r8b                     setnc %r8b                        
+cwtl                           cwtl                              
+subb $0x40, %ah                subb $0x40, %ah                   
+sbbq $0xfffffff9, %rax         sbbq $0xfffffff9, %rax            
+andnl %eax, %edi, %ecx         andnl %eax, %edi, %ecx            
+xaddl %edx, %ecx               xaddl %edx, %ecx                  
+setns %r10b                    setns %r10b                       
+addq $0x0, %rsi                addq $0x0, %rsi                   
+setpe %sil                     setpe %sil                        
+movl %ecx, %edi                movl %ecx, %edi                   
+subl %edx, %edi                subl %edx, %edi                   
+setle %ah                      setle %ah                         
+imulw %r11w, %r10w             imulw %r11w, %r10w                
+testb $0xe0, %r10b             testb $0xe0, %r10b                
+cmpw %si, %dx                  cmpw %si, %dx                     
+movsbq %r10b, %rax             movsbq %r10b, %rax                
+setbe %ch                      setbe %ch                         
+xorb $0xf9, %ch                xorb $0xf9, %ch                   
+rorb %cl, %dh                  rorb %cl, %dh                     
+orb %ch, %dh                   orb %ch, %dh                      
+rcrl $0x1, %r10d               rcrl $0x1, %r10d                  
+pextl %ecx, %esi, %esi         pextl %ecx, %esi, %esi            
+setb %r8b                      setb %r8b                         
+setz %dil                      setz %dil                         
+cmovaew %cx, %r11w             cmovaew %cx, %r11w                
+cmovzq %r10, %rsi              cmovzq %r10, %rsi                 
+retq                           retq                              
+
+********************************************************************************
+
+Unable to verify new rewrite...
+
+********************************************************************************
+
+Restarting search using new testcase (counterexample from verifier):
+
+SIGNAL 0 [normal exit]
+
+%rax     77 5e ca 30 13 aa 1a 32
+%rcx     20 d0 44 47 d0 59 6f 38
+%rdx     aa ce 88 1f 4a c2 0e 63
+%rbx     f1 af 0c 67 c1 88 31 1b
+%rsp     00 00 00 07 00 00 00 00
+%rbp     cf d5 7b c5 81 01 4e 66
+%rsi     6d 36 6e ec 7f d2 14 e9
+%rdi     7a 53 d5 4f a6 cf 70 d2
+%r8      e0 6d 3f e0 4f e3 ad dd
+%r9      83 ef 16 df 22 07 c6 d1
+%r10     6a 60 c3 c0 9c 39 ba 4e
+%r11     17 b3 ff 18 f6 f8 db 37
+%r12     90 fe 44 1b 46 6b d2 75
+%r13     04 c7 15 7a 7e 1c d7 02
+%r14     8e ce be 19 24 c6 20 e0
+%r15     86 dd e6 e2 a5 0e 7d 68
+
+%ymm0    09 ff e2 93 42 2c 89 fa fd 04 ce 51 05 c6 c3 a0 37 a1 33 01 f0 0b 1a ae d6 16 1f b1 ec ea 2e b6
+%ymm1    95 5f 69 79 f9 7e f9 d1 09 7b 21 29 f1 80 e7 e7 2d 7a da 6b d0 b9 0c 28 c8 0c 36 d4 9b 94 b1 c3
+%ymm2    a4 a0 c9 cb 57 80 50 26 31 9e f8 a4 e7 01 14 65 05 e4 55 32 0f 1c fc 47 ca ed 8f 19 38 f8 fc bd
+%ymm3    49 2d 54 8c 67 7b 08 a0 90 c1 cd 49 b2 fb 4c db d5 d9 89 a0 40 c5 12 a0 8e a6 8b 82 81 f7 e2 a3
+%ymm4    59 f3 c3 84 80 37 84 41 d7 c3 0d 85 6d 93 ba 20 44 fc 75 a0 52 3a 7f 06 89 8c 5c 9f 38 4c 97 2b
+%ymm5    b4 0c a0 34 17 3b fb d8 d8 8e 1b 3e 3a 2b f4 d9 6d 57 27 31 0a ee 4d 2a f2 fe 5d 9b 7b 18 15 96
+%ymm6    f2 ba 13 fa d8 28 fe 0d 65 80 a2 2a ca d5 bc a9 62 81 85 81 6c 72 34 a8 29 03 fd 6e 6a 96 43 ed
+%ymm7    a3 15 cb 34 61 89 46 58 b4 aa 42 ee 8c 4f 51 ff 4c 3b 39 9a 3a 22 2f c5 22 7a eb 9e 6e 07 b6 92
+%ymm8    e5 22 ca c1 bb c0 4f 7a 6b 1d a7 50 21 ce ea 4b db 0e 80 43 ed 9d 6d f3 a0 4d 28 83 da 00 09 d0
+%ymm9    f0 5b 1c 85 06 60 64 67 47 e9 a4 5b 98 94 4b 6b 01 c4 71 6e a3 c7 45 fa 8d 9c 7a bc fb a6 56 8a
+%ymm10   4f 3e ee 69 ff c4 70 27 22 b1 68 18 a7 a3 e6 87 97 2e f9 4b 6b 32 1c 5e c7 a9 02 04 0d 7c 19 c1
+%ymm11   37 02 16 dd 41 d0 02 04 31 c2 38 80 aa 6e 47 18 e7 7c 39 e8 e6 35 45 b5 c3 06 23 a1 a4 10 de 4a
+%ymm12   bf cf fc bd 7c f2 c6 fa 3e 8e 4f 40 71 23 84 32 c1 4c 64 7f 4f a8 02 96 15 4f 3e 9b 3f 60 3f 2e
+%ymm13   85 0d 24 7c 6f 71 c0 df 63 76 43 c2 32 54 e9 de b6 05 c4 1e 8d e2 57 65 d3 a9 51 ca 8c 90 40 70
+%ymm14   a1 32 fe 61 d9 0f 92 37 6c 0e 61 ad 50 29 79 9d 55 e0 82 97 48 23 6e af cc 31 8f 09 28 43 af 9c
+%ymm15   59 34 eb 39 36 4e fe 75 88 ea cf 17 9f 85 b3 2a 38 60 1f 95 84 40 67 29 02 15 e7 f9 28 f1 22 25
+
+%cf      0 
+%1       1 
+%pf      1 
+%0       0 
+%af      1 
+%0       0 
+%zf      0 
+%sf      1 
+%tf      0 
+%if      1 
+%df      0 
+%of      0 
+%iopl[0] 0 
+%iopl[1] 0 
+%nt      0 
+%0       0 
+%rf      0 
+%vm      0 
+%ac      0 
+%vif     0 
+%vip     0 
+%id      0 
+
+[ 00000007 00000000 - 00000006 ffffffe0 ]
+[ 4 valid rows shown ]
+
+00000006 fffffff8   v v v v v v v v   4e 9b 53 56 29 49 45 ae 
+00000006 fffffff0   v v v v v v v v   26 86 ab e8 4c 3d ae 60 
+00000006 ffffffe8   v v v v v v v v   99 a2 9e a8 9f bd fd 1a 
+00000006 ffffffe0   v v v v v v v v   0c 15 36 9c c6 42 8a 03 
+
+[ 00000001 00000000 - 00000001 00000000 ]
+[ 0 valid rows shown ]
+
+[ 00000000 00000000 - 00000000 00000000 ]
+[ 0 valid rows shown ]
+
+0 more segment(s)
+
+
+Running search (timeout is 1000000 iterations):
+
+Progress Update: 
+
+Lowest Cost Discovered (10)        Lowest Known Correct Cost (0)     
+                                                                     
+._Z3p11ii:                         ._Z3p11ii:                        
+bzhil %esi, %esi, %ecx             pushq %rbp                        
+movl $0x3, %eax                    movq %rsp, %rbp                   
+shrxl %ecx, %eax, %r11d            movl %edi, -0x14(%rbp)            
+cwtd                               movl %esi, -0x18(%rbp)            
+salw $0x40, %si                    movl -0x18(%rbp), %eax            
+bzhiq %rdi, %rdi, %r10             notl %eax                         
+cmovnbl %r11d, %edi                movl %eax, -0x8(%rbp)             
+andw %r11w, %si                    movl -0x14(%rbp), %eax            
+shlxl %edi, %esi, %r8d             andl -0x8(%rbp), %eax             
+rclb $0x1, %sil                    movl %eax, -0x4(%rbp)             
+rolb %cl, %sil                     movl -0x4(%rbp), %edx             
+xorb $0xf8, %dil                   movl -0x18(%rbp), %eax            
+andl %esi, %eax                    cmpl %eax, %edx                   
+xorb $0x2, %ah                     seta %al                          
+rorl $0x3, %r8d                    movzbl %al, %eax                  
+roll $0x1, %r11d                   popq %rbp                         
+cmovnlel %esi, %r11d               retq                              
+idivw %cx                                                            
+movl $0xffffffff, %ecx                                               
+cbtw                                                                 
+imull $0xfffffff8, %r8d, %r10d                                       
+shll $0x8, %ecx                                                      
+addl $0x20, %r10d                                                    
+sbbq %rsi, %r8                                                       
+sarb %cl, %cl                                                        
+sarl %cl, %r10d                                                      
+setns %r10b                                                          
+cmpq %rax, %r8                                                       
+cmovgw %si, %di                                                      
+sbbw $0x1, %dx                                                       
+retq                                                                 
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (9)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+andnl %edi, %esi, %ecx         pushq %rbp                        
+tzcntl %ecx, %r9d              movq %rsp, %rbp                   
+movl $0xfffffffb, %eax         movl %edi, -0x14(%rbp)            
+notw %si                       movl %esi, -0x18(%rbp)            
+imulq $0x2, %rdi, %rdi         movl -0x18(%rbp), %eax            
+popcntl %r9d, %r8d             notl %eax                         
+xorb %r8b, %r8b                movl %eax, -0x8(%rbp)             
+incb %dil                      movl -0x14(%rbp), %eax            
+rolw $0x1, %di                 andl -0x8(%rbp), %eax             
+adcb $0x40, %cl                movl %eax, -0x4(%rbp)             
+xchgl %r8d, %eax               movl -0x4(%rbp), %edx             
+testb $0xfb, %al               movl -0x18(%rbp), %eax            
+movl $0xfffffff9, %edx         cmpl %eax, %edx                   
+adcb %ch, %dh                  seta %al                          
+cmovgeq %rax, %rdx             movzbl %al, %eax                  
+mulb %ch                       popq %rbp                         
+xorw %r11w, %r11w              retq                              
+setnbe %ah                                                       
+sbbb $0xf0, %dil                                                 
+rcrq $0x20, %rcx                                                 
+sbbb %ah, %dh                                                    
+orb %ch, %al                                                     
+cmovneq %rsi, %rax                                               
+cmovaeq %rdi, %rcx                                               
+mulxl %esi, %ecx, %r10d                                          
+sbbl $0x7, %r10d                                                 
+setnz %ch                                                        
+rolb $0xf9, %dh                                                  
+rcll $0x1, %eax                                                  
+salb %cl, %ah                                                    
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (4)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+andnl %edi, %esi, %ecx         pushq %rbp                        
+tzcntl %ecx, %r9d              movq %rsp, %rbp                   
+movl $0xffffff80, %eax         movl %edi, -0x14(%rbp)            
+notw %si                       movl %esi, -0x18(%rbp)            
+imulq $0x2, %rdi, %rdi         movl -0x18(%rbp), %eax            
+popcntl %r9d, %r8d             notl %eax                         
+xorb %r8b, %r8b                movl %eax, -0x8(%rbp)             
+incb %dil                      movl -0x14(%rbp), %eax            
+rolw $0x1, %di                 andl -0x8(%rbp), %eax             
+adcb $0x40, %cl                movl %eax, -0x4(%rbp)             
+xchgl %r8d, %eax               movl -0x4(%rbp), %edx             
+testb $0xfb, %al               movl -0x18(%rbp), %eax            
+movl $0xfffffff9, %edx         cmpl %eax, %edx                   
+adcb %ch, %dh                  seta %al                          
+cmovgeq %rax, %rdx             movzbl %al, %eax                  
+mulb %ch                       popq %rbp                         
+xorw %r11w, %r11w              retq                              
+setnbe %ah                                                       
+sbbb $0x20, %dil                                                 
+rcrq $0x20, %rcx                                                 
+sbbb %dh, %dh                                                    
+orb %ch, %al                                                     
+cmovneq %rsi, %rdx                                               
+cmovaeq %rdi, %rcx                                               
+mulxl %esi, %ecx, %r10d                                          
+sbbl $0x7, %r10d                                                 
+setnz %ch                                                        
+rolb $0xf9, %dh                                                  
+rcll $0x1, %eax                                                  
+rolb %cl, %ah                                                    
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (3)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+tzcntl %esi, %r8d              pushq %rbp                        
+shlxl %r8d, %edi, %r11d        movq %rsp, %rbp                   
+crc32w %r8w, %r8d              movl %edi, -0x14(%rbp)            
+shrxl %esi, %edi, %eax         movl %esi, -0x18(%rbp)            
+popcntq %r11, %rdx             movl -0x18(%rbp), %eax            
+rclq $0x1, %r8                 notl %eax                         
+movb %al, %r11b                movl %eax, -0x8(%rbp)             
+cmovnlew %di, %si              movl -0x14(%rbp), %eax            
+lzcntl %esi, %eax              andl -0x8(%rbp), %eax             
+adcw %si, %dx                  movl %eax, -0x4(%rbp)             
+setle %r8b                     movl -0x4(%rbp), %edx             
+andnq %rax, %r8, %r9           movl -0x18(%rbp), %eax            
+setne %al                      cmpl %eax, %edx                   
+movzbw %dh, %cx                seta %al                          
+btl $0x20, %esi                movzbl %al, %eax                  
+orb $0x3, %ch                  popq %rbp                         
+cmpl $0xffffff80, %eax         retq                              
+rcrl $0x1, %r8d                                                  
+setpo %r10b                                                      
+setbe %cl                                                        
+popcntq %rsi, %rcx                                               
+rcrb $0x0, %dh                                                   
+btrl $0x1, %edx                                                  
+imulw $0xfff8, %si, %si                                          
+cmpw $0x20, %r11w                                                
+setno %sil                                                       
+sbbl %r11d, %edi                                                 
+sbbl $0x8, %ecx                                                  
+testb $0xfe, %ah                                                 
+shlxl %edi, %edi, %edi                                           
+retq                                                             
+
+********************************************************************************
+
+Progress Update: 
+
+Lowest Cost Discovered (2)     Lowest Known Correct Cost (0)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+lzcntl %esi, %edx              pushq %rbp                        
+mulxl %edi, %ecx, %eax         movq %rsp, %rbp                   
+xorb %dl, %dh                  movl %edi, -0x14(%rbp)            
+cmovnpw %ax, %r11w             movl %esi, -0x18(%rbp)            
+cmovneq %rsi, %r11             movl -0x18(%rbp), %eax            
+setns %r9b                     notl %eax                         
+setp %sil                      movl %eax, -0x8(%rbp)             
+cmovsl %edx, %r9d              movl -0x14(%rbp), %eax            
+blsrl %eax, %r9d               andl -0x8(%rbp), %eax             
+movzwl %si, %r11d              movl %eax, -0x4(%rbp)             
+crc32w %dx, %edi               movl -0x4(%rbp), %edx             
+cmpb $0xf8, %ch                movl -0x18(%rbp), %eax            
+cmovnpl %r9d, %eax             cmpl %eax, %edx                   
+cmovngw %di, %cx               seta %al                          
+movzwl %di, %r10d              movzbl %al, %eax                  
+orb $0x4, %sil                 popq %rbp                         
+negq %rcx                      retq                              
+salq %cl, %rsi                                                   
+imull $0x40, %r11d, %r8d                                         
+xorb %ah, %ch                                                    
+cmovlew %cx, %di                                                 
+addw $0x4, %r9w                                                  
+rcrb %cl, %dh                                                    
+cmpb %cl, %ch                                                    
+setb %dl                                                         
+mulxq %rsi, %rcx, %r8                                            
+setnge %al                                                       
+btrl $0x4, %r8d                                                  
+orq %rdx, %rcx                                                   
+sarb $0xff, %sil                                                 
+retq                                                             
+
+********************************************************************************
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (0)       Lowest Known Correct Cost (0)     
+                                                                   
+._Z3p11ii:                       ._Z3p11ii:                        
+xorl %eax, %eax                  xorl %eax, %eax                   
+andl $0x7, %eax                  andl $0x7, %eax                   
+sete %sil                        sete %sil                         
+negw %di                         negw %di                          
+cmovnzl %edi, %ecx               cmovnzl %edi, %ecx                
+movzbl %sil, %r10d               movzbl %sil, %r10d                
+movl $0x3, %r8d                  movl $0x3, %r8d                   
+andnl %edi, %esi, %edx           andnl %edi, %esi, %edx            
+movl %eax, %ecx                  movl %eax, %ecx                   
+blsrl %eax, %r9d                 blsrl %eax, %r9d                  
+cmpl %esi, %edx                  cmpl %esi, %edx                   
+sbbw $0x0, %r10w                 sbbw $0x0, %r10w                  
+rolb %cl, %r8b                   rolb %cl, %r8b                    
+xorl $0xfffffffa, %eax           xorl $0xfffffffa, %eax            
+cmovnel %r10d, %eax              cmovnel %r10d, %eax               
+movw %di, %cx                    movw %di, %cx                     
+leal -0x4(,%r10d,8), %edx        leal -0x4(,%r10d,8), %edx         
+cmovnel %r10d, %esi              cmovnel %r10d, %esi               
+xchgq %rax, %rsi                 xchgq %rax, %rsi                  
+rorq %cl, %rdx                   rorq %cl, %rdx                    
+addw %dx, %r9w                   addw %dx, %r9w                    
+setns %r9b                       setns %r9b                        
+rclb $0x1, %r8b                  rclb $0x1, %r8b                   
+lzcntw %cx, %r8w                 lzcntw %cx, %r8w                  
+cmovnbeq %r9, %rdi               cmovnbeq %r9, %rdi                
+rorb $0xf9, %r9b                 rorb $0xf9, %r9b                  
+negl %ecx                        negl %ecx                         
+cmoval %ecx, %edi                cmoval %ecx, %edi                 
+cmovaeq %rcx, %r11               cmovaeq %rcx, %r11                
+leal 0x5(%r10,%rdi,1), %r11d     leal 0x5(%r10,%rdi,1), %r11d      
+retq                             retq                              
+
+********************************************************************************
+
+################################################################################
+
+Final update:
+
+Total search iterations:       9155049
+Number of attempted searches:  12
+Total search time:             455.819s
+Total time:                    456.127s
+
+Statistics of last search
+
+Iterations:                    633056
+Elapsed Time:                  33.0193s
+Iterations/s:                  19172.3
+
+Starting cost:                 11
+Lowest cost:                   0
+Lowest correct cost:           0
+
+Move Type       Proposed     Succeeded     Accepted     
+                                                        
+Add Nops        0%           0%            0%           
+Delete          0%           0%            0%           
+Instruction     24.9987%     12.1545%      7.04851%     
+Opcode          25.1311%     19.8817%      17.6416%     
+OpcodeWidth     0%           0%            0%           
+Operand         24.9337%     20.7749%      18.7925%     
+Local Swap      24.9365%     11.6543%      9.68113%     
+Global Swap     0%           0%            0%           
+Rotate          0%           0%            0%           
+                                                        
+Total           100%         64.4654%      53.1637%     
+
+Lowest Cost Discovered (0)       Lowest Known Correct Cost (0)     
+                                                                   
+._Z3p11ii:                       ._Z3p11ii:                        
+xorl %eax, %eax                  xorl %eax, %eax                   
+andl $0x7, %eax                  andl $0x7, %eax                   
+sete %sil                        sete %sil                         
+negw %di                         negw %di                          
+cmovnzl %edi, %ecx               movzbl %sil, %r10d                
+movzbl %sil, %r10d               andnl %edi, %esi, %edx            
+movl $0x3, %r8d                  cmpl %esi, %edx                   
+andnl %edi, %esi, %edx           sbbw $0x0, %r10w                  
+movl %eax, %ecx                  xorl $0xfffffffa, %eax            
+blsrl %eax, %r9d                 cmovnel %r10d, %eax               
+cmpl %esi, %edx                  cmovnel %r10d, %esi               
+sbbw $0x0, %r10w                 xchgq %rax, %rsi                  
+rolb %cl, %r8b                   retq                              
+xorl $0xfffffffa, %eax                                             
+cmovnel %r10d, %eax                                                
+movw %di, %cx                                                      
+leal -0x4(,%r10d,8), %edx                                          
+cmovnel %r10d, %esi                                                
+xchgq %rax, %rsi                                                   
+rorq %cl, %rdx                                                     
+addw %dx, %r9w                                                     
+setns %r9b                                                         
+rclb $0x1, %r8b                                                    
+lzcntw %cx, %r8w                                                   
+cmovnbeq %r9, %rdi                                                 
+rorb $0xf9, %r9b                                                   
+negl %ecx                                                          
+cmoval %ecx, %edi                                                  
+cmovaeq %rcx, %r11                                                 
+leal 0x5(%r10,%rdi,1), %r11d                                       
+retq                                                               
+
+################################################################################
+
+Search terminated successfully with a verified rewrite!
+422.19user 33.95system 7:36.17elapsed 99%CPU (0avgtext+0avgdata 100572maxresident)k
+0inputs+528outputs (0major+21924minor)pagefaults 0swaps
+time stoke search --config opt.conf
+WARNING: Some cpu flags are not available on this hardware and will be removed:
+WARNING: { abm }
+Running search (timeout is 1000000 iterations):
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (12)     Lowest Known Correct Cost (12)     
+                                                                   
+._Z3p11ii:                      ._Z3p11ii:                         
+xorl %eax, %eax                 xorl %eax, %eax                    
+andl $0x7, %eax                 andl $0x7, %eax                    
+sete %sil                       sete %sil                          
+negw %di                        xorl $0xfffffffa, %eax             
+movzbl %sil, %r10d              movzbl %sil, %r10d                 
+andnl %edi, %esi, %edx          andnl %edi, %esi, %edx             
+cmpl %esi, %edx                 cmpl %esi, %edx                    
+sbbw $0x0, %r10w                sbbw $0x0, %r10w                   
+xorl $0xfffffffa, %eax          negw %di                           
+cmovnel %r10d, %eax             cmovnel %r10d, %eax                
+cmovnel %r10d, %esi             cmovnel %r10d, %esi                
+xchgq %rax, %rsi                xchgq %rax, %rsi                   
+retq                            retq                               
+
+********************************************************************************
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (11)     Lowest Known Correct Cost (11)     
+                                                                   
+._Z3p11ii:                      ._Z3p11ii:                         
+andnl %edi, %esi, %edx          andnl %edi, %esi, %edx             
+lzcntl %edi, %edi               lzcntl %edi, %edi                  
+subl %esi, %edx                 subl %esi, %edx                    
+setnb %sil                      setnb %sil                         
+movzbl %sil, %r10d              movzbl %sil, %r10d                 
+movzwq %di, %rcx                movzwq %di, %rcx                   
+setz %ch                        setz %ch                           
+adcb $0xfc, %dil                adcb $0xfc, %dil                   
+setnl %dil                      setnl %dil                         
+shlw $0x20, %si                 shlw $0x20, %si                    
+movl %r10d, %eax                movl %r10d, %eax                   
+retq                            retq                               
+
+********************************************************************************
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (10)     Lowest Known Correct Cost (10)     
+                                                                   
+._Z3p11ii:                      ._Z3p11ii:                         
+andnl %edi, %esi, %edx          andnl %edi, %esi, %edx             
+subl %esi, %edx                 subl %esi, %edx                    
+movsbl %dil, %r10d              movsbl %dil, %r10d                 
+setnb %sil                      setnb %sil                         
+addl %r10d, %r10d               addl %r10d, %r10d                  
+sbbw $0x0, %di                  sbbw $0x0, %di                     
+cmovnbw %si, %r10w              cmovnbw %si, %r10w                 
+movzbq %dil, %rdx               movzbq %dil, %rdx                  
+movq $0x7, %rax                 movq $0x7, %rax                    
+andl %r10d, %eax                andl %r10d, %eax                   
+retq                            retq                               
+
+********************************************************************************
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (9)     Lowest Known Correct Cost (9)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+andnl %edi, %esi, %edx         andnl %edi, %esi, %edx            
+cmpl %esi, %edx                cmpl %esi, %edx                   
+setnb %sil                     setnb %sil                        
+movzbl %sil, %r10d             movzbl %sil, %r10d                
+addw %di, %di                  addw %di, %di                     
+btsl $0x80, %edx               btsl $0x80, %edx                  
+movl %r10d, %eax               movl %r10d, %eax                  
+cmpb $0xf9, %al                cmpb $0xf9, %al                   
+setnbe %ch                     setnbe %ch                        
+retq                           retq                              
+
+********************************************************************************
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (8)     Lowest Known Correct Cost (8)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+popcntl %edi, %eax             popcntl %edi, %eax                
+andnl %edi, %esi, %edx         andnl %edi, %esi, %edx            
+movsbq %dil, %rdi              movsbq %dil, %rdi                 
+subl %esi, %edx                subl %esi, %edx                   
+setae %al                      setae %al                         
+cmovaw %si, %dx                cmovaw %si, %dx                   
+cmovzw %di, %di                cmovzw %di, %di                   
+adcl $0x20, %edx               adcl $0x20, %edx                  
+retq                           retq                              
+
+********************************************************************************
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (7)     Lowest Known Correct Cost (7)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+movl $0x8, %eax                movl $0x8, %eax                   
+andnl %edi, %esi, %edx         andnl %edi, %esi, %edx            
+andw %di, %si                  andw %di, %si                     
+andb %dh, %dh                  andb %dh, %dh                     
+setge %ch                      setge %ch                         
+sbbl %esi, %edx                sbbl %esi, %edx                   
+setnc %al                      setnc %al                         
+retq                           retq                              
+
+********************************************************************************
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (6)     Lowest Known Correct Cost (6)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+andnl %edi, %esi, %edx         andnl %edi, %esi, %edx            
+cmovew %si, %r9w               cmovew %si, %r9w                  
+movl $0x4, %eax                movl $0x4, %eax                   
+cmpl %esi, %edx                cmpl %esi, %edx                   
+setnb %al                      setnb %al                         
+movzwq %si, %rdx               movzwq %si, %rdx                  
+retq                           retq                              
+
+********************************************************************************
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (5)     Lowest Known Correct Cost (5)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+andnl %edi, %esi, %edx         andnl %edi, %esi, %edx            
+movl $0x20, %eax               movl $0x20, %eax                  
+sbbl %esi, %edx                sbbl %esi, %edx                   
+seta %al                       seta %al                          
+cmovgew %si, %si               cmovgew %si, %si                  
+retq                           retq                              
+
+********************************************************************************
+
+No action on new best correct
+Progress Update: 
+
+Lowest Cost Discovered (4)     Lowest Known Correct Cost (4)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+movl $0x3, %eax                movl $0x3, %eax                   
+andnl %edi, %esi, %edx         andnl %edi, %esi, %edx            
+sbbl %esi, %edx                sbbl %esi, %edx                   
+setnbe %al                     setnbe %al                        
+retq                           retq                              
+
+********************************************************************************
+
+Statistics Update: 
+
+Iterations:                    1000000
+Elapsed Time:                  25.681s
+Iterations/s:                  38939.3
+
+Starting cost:                 12
+Lowest cost:                   4
+Lowest correct cost:           4
+
+Move Type       Proposed     Succeeded     Accepted     
+                                                        
+Add Nops        0%           0%            0%           
+Delete          0%           0%            0%           
+Instruction     16.6593%     6.2409%       0.1407%      
+Opcode          16.6591%     12.1169%      1.8522%      
+OpcodeWidth     0%           0%            0%           
+Operand         16.6279%     4.6945%       2.113%       
+Local Swap      16.6578%     9.0129%       7.3967%      
+Global Swap     16.7073%     10.4363%      8.5546%      
+Rotate          16.6886%     11.4003%      10.2023%     
+                                                        
+Total           100%         53.9018%      30.2595%     
+
+********************************************************************************
+
+################################################################################
+
+Final update:
+
+Total search iterations:       1000000
+Number of attempted searches:  1
+Total search time:             25.6817s
+Total time:                    25.968s
+
+Statistics of last search
+
+Iterations:                    1000000
+Elapsed Time:                  25.6815s
+Iterations/s:                  38938.5
+
+Starting cost:                 12
+Lowest cost:                   4
+Lowest correct cost:           4
+
+Move Type       Proposed     Succeeded     Accepted     
+                                                        
+Add Nops        0%           0%            0%           
+Delete          0%           0%            0%           
+Instruction     16.6593%     6.2409%       0.1407%      
+Opcode          16.6591%     12.1169%      1.8522%      
+OpcodeWidth     0%           0%            0%           
+Operand         16.6279%     4.6945%       2.113%       
+Local Swap      16.6578%     9.0129%       7.3967%      
+Global Swap     16.7073%     10.4363%      8.5546%      
+Rotate          16.6886%     11.4003%      10.2023%     
+                                                        
+Total           100%         53.9018%      30.2595%     
+
+Lowest Cost Discovered (4)     Lowest Known Correct Cost (4)     
+                                                                 
+._Z3p11ii:                     ._Z3p11ii:                        
+movl $0x3, %eax                movl $0x3, %eax                   
+andnl %edi, %esi, %edx         andnl %edi, %esi, %edx            
+sbbl %esi, %edx                sbbl %esi, %edx                   
+setnbe %al                     setnbe %al                        
+retq                           retq                              
+
+################################################################################
+
+Search terminated successfully with a verified rewrite!
+23.19user 2.81system 0:26.01elapsed 99%CPU (0avgtext+0avgdata 97724maxresident)k
+0inputs+40outputs (0major+21880minor)pagefaults 0swaps
+time ./a.out 100000000
+1.11user 0.00system 0:01.11elapsed 100%CPU (0avgtext+0avgdata 1072maxresident)k
+0inputs+0outputs (0major+61minor)pagefaults 0swaps
+g++ -std=c++11 -O3 -c fxn.cc
+g++ -std=c++11 -O3 main.cc fxn.o
+stoke replace --config replace.conf
