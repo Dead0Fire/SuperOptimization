@@ -14,13 +14,9 @@
 
 #include <stdint.h>
 
-struct Node {
-  int32_t val;
-  Node* next;
-};
-void traverse(Node* head) {
-  while (head != 0) {
-    head->val *= 2;
-    head = head->next;
-  }
+void saxpy(uint32_t a, uint32_t* x, uint32_t* y, int i) {
+  x[i+0] = x[i+0] * a + y[i+0];
+  x[i+1] = x[i+1] * a + y[i+1];
+  x[i+2] = x[i+2] * a + y[i+2];
+  x[i+3] = x[i+3] * a + y[i+3];
 }

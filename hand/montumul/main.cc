@@ -12,15 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <cstdlib>
 #include <stdint.h>
 
-struct Node {
-  int32_t val;
-  Node* next;
-};
-void traverse(Node* head) {
-  while (head != 0) {
-    head->val *= 2;
-    head = head->next;
+extern void mont_mul(uint64_t c1, uint64_t np, uint32_t ml, uint32_t mh, uint64_t c0);
+
+int main(int argc, char** argv) {
+  const auto itr = argc > 1 ? atoi(argv[1]) : 1024;
+  const auto seed = argc > 2 ? atoi(argv[2]) : 0;
+
+  srand(seed);
+  for (auto i = 0; i < itr; ++i) {
+    mont_mul(rand(), rand(), rand(), rand(), rand());
   }
+
+  return 0;
 }

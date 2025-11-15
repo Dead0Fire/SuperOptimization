@@ -12,15 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <cstdlib>
 #include <stdint.h>
 
-struct Node {
-  int32_t val;
-  Node* next;
-};
-void traverse(Node* head) {
-  while (head != 0) {
-    head->val *= 2;
-    head = head->next;
+extern void saxpy(uint32_t a, uint32_t* x, uint32_t* y, int i);
+
+int main(int argc, char** argv) {
+  const auto itr = argc > 1 ? atoi(argv[1]) : 1024;
+  const auto seed = argc > 2 ? atoi(argv[2]) : 0;
+
+  srand(seed);
+
+  for (auto i = 0; i < itr; ++i) {
+    auto a = rand();
+    auto x = new uint32_t[16];
+    auto y = new uint32_t[16];
+
+    auto idx = 4 * (rand() % 4);
+    for (auto j = 0; j < 4; ++j) {
+      x[idx+j] = rand();
+      y[idx+j] = rand();
+    }
+
+    saxpy(a, x, y, idx);
   }
+
+  return 0;
 }
