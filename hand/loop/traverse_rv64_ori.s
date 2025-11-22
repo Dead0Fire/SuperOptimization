@@ -15,9 +15,6 @@
 _Z8traverseP4Node:
     # a0 holds head (rdi)
     
-    # Jump to check first (correspond to .L2)
-    j .L2_check
-
 .L1_body:
     # sall (rdi) -> lw, slliw, sw
     lw   a5, 0(a0)
@@ -27,7 +24,6 @@ _Z8traverseP4Node:
     # movq 8(rdi), rdi -> ld a0, 8(a0)
     ld   a0, 8(a0)
 
-.L2_check:
     # testq rdi, rdi; jne .L1
     bnez a0, .L1_body
 

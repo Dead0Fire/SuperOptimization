@@ -44,8 +44,8 @@ time qemu-riscv64 -L /usr/riscv64-linux-gnu ./name_opt 10000000
 
 | 版本 | 耗时 (User) | 耗时 (Total) | 说明 |
 | :--- | :--- | :--- | :--- |
-| **Original (GCC)** | **1.23s** | **1.233s** | 无分支实现，性能较好 |
-| **Optimized (STOKE)** | **1.33s** | **1.332s** | 模拟 cmov 引入了分支，性能略降 |
+| **Original (GCC)** | **1.23s** | **1.239s** | 无分支实现，性能较好 |
+| **Optimized (STOKE)** | **1.32s** | **1.322s** | 模拟 cmov 引入了分支，性能略降 |
 
 ## 5. 结论
 在此 `p21` 案例中，GCC -O3 生成的代码 (`gcc.s`) 优于 STOKE 生成的代码 (`stoke.s`)。

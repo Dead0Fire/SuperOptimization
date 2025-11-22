@@ -44,8 +44,8 @@ time qemu-riscv64 -L /usr/riscv64-linux-gnu ./name_opt 10000000
 
 | 版本 | 耗时 (User) | 耗时 (Total) | 说明 |
 | :--- | :--- | :--- | :--- |
-| **Original (GCC)** | **1.54s** | **1.541s** | 逻辑复杂，含分支 |
-| **Optimized (STOKE)** | **1.55s** | **1.552s** | 代码精简，无分支 |
+| **Original (GCC)** | **1.53s** | **1.533s** | 逻辑复杂，含分支 |
+| **Optimized (STOKE)** | **1.52s** | **1.522s** | 代码精简，无分支 |
 
 ## 5. 结论
 在此 `mont_mul` 案例中，尽管 STOKE 生成的代码 (`stoke.s`) 在指令数量上看起来更少且消除了分支，但在 RISC-V 模拟环境下的性能与 GCC -O3 生成的代码 (`gcc.s`) **几乎持平** (甚至略慢 0.01s，误差范围内)。

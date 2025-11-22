@@ -30,12 +30,8 @@ _Z8traverseP4Node:
     sd   a0, 8(sp)
 
 .L_loop:
-    # cmpq $0x0, -0x8(%rsp)
-    ld   a5, 8(sp)
-    beqz a5, .L_done
-
     # movq -0x8(%rsp), %rax
-    ld   a4, 8(sp)      # rax = a4
+    ld   a4, 8(sp)      # rax = current head
 
     # movq 0x8(%rax), %rcx
     ld   a3, 8(a4)      # rcx = a3
@@ -48,6 +44,9 @@ _Z8traverseP4Node:
     lw   a2, 0(a4)
     slliw a2, a2, 1
     sw   a2, 0(a4)
+
+    # cmpq $0x0, -0x8(%rsp) / testq rdi,rdi
+    beqz a3, .L_done
 
     j    .L_loop
 

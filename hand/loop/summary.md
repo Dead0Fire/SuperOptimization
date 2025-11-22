@@ -44,8 +44,8 @@ time qemu-riscv64 -L /usr/riscv64-linux-gnu ./name_opt 10000000
 
 | 版本 | 耗时 (User) | 耗时 (Total) | 说明 |
 | :--- | :--- | :--- | :--- |
-| **Original (GCC)** | **1.24s** | **1.338s** | 纯寄存器操作，效率最高 |
-| **Optimized (STOKE)** | **1.25s** | **1.342s** | 包含多余栈访问，略慢或持平 |
+| **Original (GCC)** | **1.26s** | **1.338s** | 纯寄存器操作，效率最高 |
+| **Optimized (STOKE)** | **1.26s** | **1.346s** | 包含多余栈访问，略慢或持平 |
 
 ## 5. 结论
 在此 `loop` 案例中，STOKE 生成的代码 (`stoke.s`) **并没有** 优于 GCC -O3 生成的代码 (`gcc.s`)。

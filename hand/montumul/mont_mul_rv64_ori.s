@@ -19,7 +19,8 @@ _Z8mont_mulmmjjm:
     srli a1, a1, 32     # a1 = np >> 32
 
     # 6  andl 0xffffffff, r9d
-    zext.w t0, t0       # t0 = np & 0xffffffff
+    zext.w t0, t0       # t0 = np & 0xffffffff (np_low)
+    mv t5, t0           # keep original np_low for later adds
 
     # 7  movq rcx, rax
     mv t1, a3           # t1 = mh
@@ -71,8 +72,8 @@ _Z8mont_mulmmjjm:
     add a3, a3, a1      # rcx += rsi
 
     # 23 addq r9, rdx
-    add a2, a2, t0      # rdx += r9
-    sltu t4, a2, t0     # carry out
+    add a2, a2, t5      # rdx += r9 (np_low)
+    sltu t4, a2, t5     # carry out
 
     # 24 adcq 0, rcx
     add a3, a3, t4      # rcx += carry
